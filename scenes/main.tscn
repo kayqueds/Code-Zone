@@ -5,29 +5,32 @@
 [ext_resource type="Texture2D" uid="uid://cxtmv32oepj24" path="res://assets/sprites/players/robo_java.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://b76fl7l2r53g8" path="res://assets/sprites/players/robo_python.png" id="4_jyhfs"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
-radius = 34.0
-height = 92.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbgi4"]
+radius = 29.0
+height = 80.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
 atlas = ExtResource("3_jyhfs")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tefeu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
 atlas = ExtResource("3_jyhfs")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tefeu"]
 atlas = ExtResource("3_jyhfs")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("3_jyhfs")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_85g3d"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_tipki"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyhfs")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tbgi4")
 }, {
@@ -36,42 +39,39 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o6xl0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tipki")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 15.0
+"speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbgi4"]
-radius = 38.0
-height = 80.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
-atlas = ExtResource("4_jyhfs")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
+radius = 33.0
+height = 78.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
 atlas = ExtResource("4_jyhfs")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
 atlas = ExtResource("4_jyhfs")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb6dy"]
+atlas = ExtResource("4_jyhfs")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_eb6dy"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_trceg"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_85g3d")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_choun")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ya4ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb6dy")
 }],
 "loop": true,
 "name": &"idle",
@@ -83,48 +83,43 @@ size = Vector2(1283, 45)
 
 [node name="Main" type="Node2D" unique_id=1593932610]
 
-[node name="Player1" parent="." unique_id=121591833 instance=ExtResource("1_o5qli")]
-position = Vector2(345, 542)
-up_direction = Vector2(0.99999446, -0.003333315)
-safe_margin = 0.15
+[node name="Player1" parent="." unique_id=1215616170 instance=ExtResource("1_o5qli")]
+position = Vector2(480, 543)
 script = ExtResource("2_0wfyh")
 input_left = "Left_p1"
 input_right = "Right_p1"
 input_jump = "Jump_p1"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1" unique_id=258870582]
-position = Vector2(6, 7)
-shape = SubResource("CapsuleShape2D_jyhfs")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1" unique_id=141401493]
+position = Vector2(-1, -2)
+shape = SubResource("CapsuleShape2D_tbgi4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1" unique_id=2042404572]
-position = Vector2(4.0000005, 7.999997)
-scale = Vector2(2.59375, 2.59375)
-sprite_frames = SubResource("SpriteFrames_85g3d")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player1" unique_id=1954573977]
+position = Vector2(-4, -1)
+scale = Vector2(2.187499, 2.187499)
+sprite_frames = SubResource("SpriteFrames_tipki")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.25773144
+frame_progress = 0.04796442
 
-[node name="Player2" parent="." unique_id=1215616170 instance=ExtResource("1_o5qli")]
-position = Vector2(740, 546)
+[node name="Player2" parent="." unique_id=1505026668 instance=ExtResource("1_o5qli")]
+position = Vector2(849, 547)
 script = ExtResource("2_0wfyh")
 input_left = "Left_p2"
 input_right = "Right_p2"
 input_jump = "Jump_p2"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=141401493]
-position = Vector2(-1, -2)
-shape = SubResource("CapsuleShape2D_tbgi4")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=944820440]
+position = Vector2(2, -1)
+shape = SubResource("CapsuleShape2D_85g3d")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2" unique_id=888144276]
-position = Vector2(-2.2649765e-06, -6.4373016e-06)
-scale = Vector2(2.625001, 2.3749988)
-sprite_frames = SubResource("SpriteFrames_eb6dy")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player2" unique_id=1671860334]
+position = Vector2(2, -1)
+scale = Vector2(2.1875, 2.1875)
+sprite_frames = SubResource("SpriteFrames_trceg")
 animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.9069492
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=398685367]
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1033879490]
 position = Vector2(640.5, 696.5)
