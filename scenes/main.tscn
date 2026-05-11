@@ -45,6 +45,9 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(20, 4)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85g3d"]
 radius = 33.0
 height = 78.0
@@ -78,6 +81,9 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(37, 8)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(1283, 45)
 
@@ -89,6 +95,7 @@ script = ExtResource("2_0wfyh")
 input_left = "Left_p1"
 input_right = "Right_p1"
 input_jump = "Jump_p1"
+input_attack = "Attack_p1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player1" unique_id=141401493]
 position = Vector2(-1, -2)
@@ -100,7 +107,14 @@ scale = Vector2(2.187499, 2.187499)
 sprite_frames = SubResource("SpriteFrames_tipki")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.04796442
+frame_progress = 0.65315723
+
+[node name="AttackArea" type="Area2D" parent="Player1" unique_id=1774109918]
+position = Vector2(38, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/AttackArea" unique_id=1600795400]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_tbgi4")
 
 [node name="Player2" parent="." unique_id=1505026668 instance=ExtResource("1_o5qli")]
 position = Vector2(849, 547)
@@ -108,6 +122,7 @@ script = ExtResource("2_0wfyh")
 input_left = "Left_p2"
 input_right = "Right_p2"
 input_jump = "Jump_p2"
+input_attack = "Attack_p2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=944820440]
 position = Vector2(2, -1)
@@ -118,6 +133,13 @@ position = Vector2(2, -1)
 scale = Vector2(2.1875, 2.1875)
 sprite_frames = SubResource("SpriteFrames_trceg")
 animation = &"idle"
+
+[node name="AttackArea" type="Area2D" parent="Player2" unique_id=1931058899]
+position = Vector2(-45, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/AttackArea" unique_id=191748127]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_jyhfs")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=398685367]
 
