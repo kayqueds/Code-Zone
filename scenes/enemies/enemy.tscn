@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://ccp45f25a1h48"]
+
+[ext_resource type="Script" uid="uid://bur4nucvcoxj8" path="res://scripts/enemy.gd" id="1_8e3ao"]
+[ext_resource type="Texture2D" uid="uid://cefs6gw2tvnk7" path="res://assets/sprites/enemies/inimigo01.png" id="2_38ino"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ouv8"]
+size = Vector2(83, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lu5c6"]
+atlas = ExtResource("2_38ino")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb6gf"]
+atlas = ExtResource("2_38ino")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jt03m"]
+atlas = ExtResource("2_38ino")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7575"]
+atlas = ExtResource("2_38ino")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qch6t"]
+atlas = ExtResource("2_38ino")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2oo6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lu5c6")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb6gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jt03m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7575")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qch6t")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=19257954]
+script = ExtResource("1_8e3ao")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1960287211]
+position = Vector2(46.5, 53)
+shape = SubResource("RectangleShape2D_6ouv8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=681255197]
+position = Vector2(47.000004, 45)
+scale = Vector2(2.5625, 2.5625)
+sprite_frames = SubResource("SpriteFrames_l2oo6")
+animation = &"run"
+autoplay = "idle"
