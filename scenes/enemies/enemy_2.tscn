@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cxk2fko462xpg"]
+
+[ext_resource type="Script" uid="uid://bur4nucvcoxj8" path="res://scripts/enemy.gd" id="1_ngklj"]
+[ext_resource type="Texture2D" uid="uid://dc78na6cneofk" path="res://assets/sprites/enemies/inimigo02.png" id="3_m80vh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_voq6e"]
+size = Vector2(82, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1waf"]
+atlas = ExtResource("3_m80vh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsg8q"]
+atlas = ExtResource("3_m80vh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gpr3"]
+atlas = ExtResource("3_m80vh")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30175"]
+atlas = ExtResource("3_m80vh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pesh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1waf")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsg8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30175")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oj22f"]
+size = Vector2(83, 58)
+
+[node name="Enemy2" type="CharacterBody2D" unique_id=624936753]
+script = ExtResource("1_ngklj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=648180941]
+position = Vector2(61, 51)
+shape = SubResource("RectangleShape2D_voq6e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=862624260]
+position = Vector2(62.000004, 42)
+scale = Vector2(2.5625, 2.5625)
+sprite_frames = SubResource("SpriteFrames_8pesh")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.30068922
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=201732690]
+position = Vector2(62, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1413764117]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_oj22f")
+debug_color = Color(0.90337807, 0.2912042, 0.26713774, 0.41960785)
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

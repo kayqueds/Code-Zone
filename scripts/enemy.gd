@@ -4,6 +4,8 @@ const speed = 100.0
 const gravity = 900.0
 
 @onready var anim = $AnimatedSprite2D
+@export var health = 50
+var can_attack = true
 
 func _physics_process(delta):
 
@@ -48,6 +50,8 @@ func follow_player():
 
 		velocity.x = direction.normalized().x * speed
 
+		
+			
 func animations():
 
 	if velocity.x != 0:
@@ -61,3 +65,32 @@ func animations():
 
 	if velocity.x < 0:
 		anim.flip_h = true
+
+func take_damage(damage):
+
+	health -= damage
+
+	print(name, " VIDA:", health)
+
+	if health <= 0:
+		die()
+
+func die():
+
+	print(name, " MORREU")
+
+	queue_free()
+
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player") and can_attack:
+
+		can_attack = false
+
+		body.take_damage(10, global_position)
+
+		await get_tree().create_timer(1.0).timeout
+
+		can_attack = true
+		
+	pass

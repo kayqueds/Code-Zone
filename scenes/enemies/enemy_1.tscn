@@ -54,7 +54,10 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" unique_id=19257954]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsxte"]
+size = Vector2(83, 62)
+
+[node name="Enemy1" type="CharacterBody2D" unique_id=19257954]
 script = ExtResource("1_8e3ao")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1960287211]
@@ -67,3 +70,13 @@ scale = Vector2(2.5625, 2.5625)
 sprite_frames = SubResource("SpriteFrames_l2oo6")
 animation = &"run"
 autoplay = "idle"
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1091297436]
+position = Vector2(16, 53)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1768847544]
+position = Vector2(30.5, 0)
+shape = SubResource("RectangleShape2D_lsxte")
+debug_color = Color(0.90337807, 0.2912042, 0.26713774, 0.41960785)
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

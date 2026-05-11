@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://3qamaxegw0pw"]
+
+[ext_resource type="Script" uid="uid://bur4nucvcoxj8" path="res://scripts/enemy.gd" id="1_iqwa4"]
+[ext_resource type="Texture2D" uid="uid://dhge6cnk0srn" path="res://assets/sprites/enemies/inimigo03.png" id="1_rdon1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqwa4"]
+size = Vector2(69, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqwa4"]
+atlas = ExtResource("1_rdon1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofsh2"]
+atlas = ExtResource("1_rdon1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28rdh"]
+atlas = ExtResource("1_rdon1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i8vg"]
+atlas = ExtResource("1_rdon1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf8l3"]
+atlas = ExtResource("1_rdon1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ofsh2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqwa4")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofsh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28rdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i8vg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf8l3")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofsh2"]
+size = Vector2(73, 62)
+
+[node name="Enemy3" type="CharacterBody2D" unique_id=1456898192]
+script = ExtResource("1_iqwa4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=738904384]
+position = Vector2(44.5, 54)
+shape = SubResource("RectangleShape2D_iqwa4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1345275433]
+position = Vector2(47.000004, 45)
+scale = Vector2(2.5625, 2.5625)
+sprite_frames = SubResource("SpriteFrames_ofsh2")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.66730225
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=901821757]
+position = Vector2(16, 53)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1830865898]
+position = Vector2(30.5, 0)
+shape = SubResource("RectangleShape2D_ofsh2")
+debug_color = Color(0.90337807, 0.2912042, 0.26713774, 0.41960785)
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
