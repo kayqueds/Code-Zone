@@ -1,23 +1,13 @@
 extends Camera2D
 
-var target: Node2D
+@onready var player1 = $"../Player"
+@onready var player2 = $"../Player2"
 
-func _ready() -> void:
-	await get_tree().process_frame
-	get_target()
-	print("PLAYER OK")
+func _process(delta):
 
-func _process(_delta: float) -> void:
+	if player1 and player2:
 
-	if target:
-		position = target.position
-
-func get_target():
-
-	var nodes = get_tree().get_nodes_in_group("Player")
-
-	if nodes.size() == 0:
-		push_error("Player not found")
-		return
-
-	target = nodes[0]
+		global_position = (
+			player1.global_position +
+			player2.global_position
+		) / 2

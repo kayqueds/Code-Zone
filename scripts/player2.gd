@@ -30,11 +30,11 @@ enum PlayerState {
 @export var water_acceleration = 200
 @export var water_jump_force = -100
 
-# INPUTS PLAYER 1
-@export var input_left := "left_p1"
-@export var input_right := "right_p1"
-@export var input_jump := "jump_p1"
-@export var input_duck := "duck_p1"
+# INPUTS PLAYER 2
+@export var input_left := "left_p2"
+@export var input_right := "right_p2"
+@export var input_jump := "jump_p2"
+@export var input_duck := "duck_p2"
 
 const JUMP_VELOCITY = -300.0
 
@@ -50,7 +50,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	match status:
-
 		PlayerState.idle:
 			idle_state(delta)
 
@@ -81,31 +80,25 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func go_to_idle_state():
-
 	status = PlayerState.idle
 	anim.play("idle")
 
 func go_to_walk_state():
-
 	status = PlayerState.walk
 	anim.play("walk")
 
 func go_to_jump_state():
-
 	status = PlayerState.jump
 	anim.play("jump")
 
 	velocity.y = JUMP_VELOCITY
-
 	jump_count += 1
 
 func go_to_fall_state():
-
 	status = PlayerState.fall
 	anim.play("fall")
 
 func go_to_duck_state():
-
 	status = PlayerState.duck
 	anim.play("duck")
 
@@ -115,7 +108,6 @@ func exit_from_duck_state():
 	set_large_collider()
 
 func go_to_slide_state():
-
 	status = PlayerState.slide
 	anim.play("slide")
 
@@ -125,16 +117,13 @@ func exit_from_slide_state():
 	set_large_collider()
 
 func go_to_wall_state():
-
 	status = PlayerState.wall
 	anim.play("wall")
 
 	velocity = Vector2.ZERO
-
 	jump_count = 0
 
 func go_to_swimming_state():
-
 	status = PlayerState.swimming
 	anim.play("swimming")
 
@@ -282,7 +271,6 @@ func wall_state(delta):
 		direction = -1
 
 	else:
-
 		go_to_fall_state()
 		return
 
@@ -402,12 +390,14 @@ func hit_enemy(area: Area2D):
 
 	if velocity.y > 0:
 
+		# inimigo morre
 		area.get_parent().take_damage()
 
 		go_to_jump_state()
 
 	else:
 
+		# player morre
 		go_to_hurt_state()
 
 func hit_lethal_area():

@@ -151,9 +151,7 @@ time = 2
 position = Vector2(158, 0)
 
 [node name="Player2" parent="." unique_id=453190765 instance=ExtResource("15_xnncp")]
-
-[node name="Player3" parent="." unique_id=604056778 instance=ExtResource("15_xnncp")]
-position = Vector2(139, 143)
+position = Vector2(144, 147)
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]

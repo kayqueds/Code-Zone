@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://do6ppyeif7wlk"]
 
-[ext_resource type="Script" uid="uid://bd7qm8bs4spr0" path="res://scripts/player.gd" id="1_3s7gd"]
+[ext_resource type="Script" uid="uid://b4cjy4qm0n1wf" path="res://scripts/player2.gd" id="1_twc2l"]
 [ext_resource type="Texture2D" uid="uid://dhrp2twh65sjq" path="res://sprites/3 - Robo_Java/SPRITE_JV_RESPIRAR.png" id="2_3s7gd"]
 [ext_resource type="Texture2D" uid="uid://dfrirhmw07moe" path="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png" id="3_fbkpf"]
 [ext_resource type="Texture2D" uid="uid://5hr3y4aqwpj7" path="res://sprites/3 - Robo_Java/SPRITE_JV_PULAR.png" id="3_twc2l"]
@@ -154,7 +154,7 @@ size = Vector2(12, 15)
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
 collision_layer = 2
 collision_mask = 9
-script = ExtResource("1_3s7gd")
+script = ExtResource("1_twc2l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910780751]
 z_index = 2
