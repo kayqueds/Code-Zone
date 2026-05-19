@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ckt7xvpbeh155"
+path="res://.godot/imported/warped-shooting-fx.ogg-4c7ab0871726d4ea1ac0f4e8def488c1.oggvorbisstr"
+
+[deps]
+
+source_file="res://sprites/Warped shooting fx files/Assets/Music/warped-shooting-fx.ogg"
+dest_files=["res://.godot/imported/warped-shooting-fx.ogg-4c7ab0871726d4ea1ac0f4e8def488c1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

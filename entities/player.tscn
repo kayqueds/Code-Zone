@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b4uyanguafauh"]
 
 [ext_resource type="Script" uid="uid://bd7qm8bs4spr0" path="res://scripts/player.gd" id="1_merdl"]
+[ext_resource type="PackedScene" uid="uid://dta6eyurdh7jh" path="res://scene/bullet.tscn" id="2_qly61"]
 [ext_resource type="Texture2D" uid="uid://ce1e2pm43hu2y" path="res://sprites/2 - Robo_Python/SPRITE_PY_ RESPIRAR.png" id="6_x08pd"]
 [ext_resource type="Texture2D" uid="uid://b4165vg4eiga6" path="res://sprites/2 - Robo_Python/SPRITE_PY_ PULAR.png" id="7_dchgp"]
 [ext_resource type="Texture2D" uid="uid://b2js75xcnlly" path="res://sprites/2 - Robo_Python/SPRITE_PY_ ANDAR.png" id="10_kdgjc"]
@@ -147,6 +148,7 @@ size = Vector2(12, 15)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_merdl")
+bullet_scene = ExtResource("2_qly61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910780751]
 z_index = 2
@@ -183,6 +185,9 @@ target_position = Vector2(-7, 0)
 visible = false
 z_index = 10
 target_position = Vector2(7, 0)
+
+[node name="GunPoint" type="Marker2D" parent="." unique_id=64347479]
+position = Vector2(12, 3)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
