@@ -17,7 +17,16 @@ enum PlayerState {
 @onready var left_wall_detector = $LeftWallDetector
 @onready var right_wall_detector = $RightWallDetector
 
+# tiro normal, carregado
 @export var bullet_scene: PackedScene
+@export var charged_bullet_scene: PackedScene
+
+@onready var charge_timer = $ChargeTimer
+
+var is_charging = false
+var charged_shot_ready = false
+
+
 
 @export var max_speed = 180.0
 @export var acceleration = 400
@@ -73,7 +82,7 @@ func _physics_process(delta):
 			hurt_state(delta)
 
 	move_and_slide()
-	shoot()
+	handle_shoot()
 
 func go_to_idle_state():
 
@@ -285,23 +294,69 @@ func update_direction():
 func can_jump() -> bool:
 	return jump_count < max_jump_count
 
-func shoot():
 
+func handle_shoot():
+
+	# começou carregar
 	if Input.is_action_just_pressed("shoot_p1"):
 
-		if bullet_scene == null:
-			return
+		is_charging = true
+		charged_shot_ready = false
 
-		var bullet = bullet_scene.instantiate()
+		charge_timer.start()
 
-		get_parent().add_child(bullet)
+	# soltou botão
+	if Input.is_action_just_released("shoot_p1"):
 
-		bullet.global_position = gun_point.global_position
-
-		if facing_direction < 0:
-			bullet.set_direction(Vector2.LEFT)
+		if charged_shot_ready:
+			shoot_charged()
 		else:
-			bullet.set_direction(Vector2.RIGHT)
-			
+			shoot_normal()
+
+		is_charging = false
+
+func shoot_normal():
+
+	if bullet_scene == null:
+		return
+
+	var bullet = bullet_scene.instantiate()
+
+	get_parent().add_child(bullet)
+
+	bullet.global_position = gun_point.global_position
+
+	if facing_direction < 0:
+		bullet.set_direction(Vector2.LEFT)
+	else:
+		bullet.set_direction(Vector2.RIGHT)
+
+
+func shoot_charged():
+
+	if charged_bullet_scene == null:
+		return
+
+	var bullet = charged_bullet_scene.instantiate()
+
+	get_parent().add_child(bullet)
+
+	bullet.global_position = gun_point.global_position
+
+	if facing_direction < 0:
+		bullet.set_direction(Vector2.LEFT)
+	else:
+		bullet.set_direction(Vector2.RIGHT)
+
 func _on_reload_timer_timeout():
 	get_tree().reload_current_scene()
+
+
+func _on_charge_timer_timeout():
+
+	if is_charging:
+		charged_shot_ready = true
+							
+	
+	
+	
