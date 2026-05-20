@@ -50,14 +50,19 @@ animations = [{
 size = Vector2(25, 8)
 
 [node name="Bullet" type="Area2D" unique_id=188579184]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_v8qja")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]
 scale = Vector2(0.5624998, 0.5625)
 sprite_frames = SubResource("SpriteFrames_gofb6")
 autoplay = "default"
-frame_progress = 0.3227565
+frame_progress = 0.21603473
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474655065]
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_4bibm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
