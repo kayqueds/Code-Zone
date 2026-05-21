@@ -146,8 +146,6 @@ animations = [{
 size = Vector2(12, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
-collision_layer = 2
-collision_mask = 9
 script = ExtResource("1_merdl")
 bullet_scene = ExtResource("2_qly61")
 charged_bullet_scene = ExtResource("3_qsoyl")

@@ -23,26 +23,11 @@ func set_direction(new_direction):
 
 func _on_body_entered(body):
 
+	if body.is_in_group("player"):
+		return
+
 	if body.has_method("take_damage"):
+
 		body.take_damage(damage)
-		queue_free()
-
-
-
-
-func _on_area_entered(area: Area2D) -> void:
-
-	print("COLIDI:", area.name)
-
-	if area.get_parent().has_method("take_damage"):
-
-		area.get_parent().take_damage(damage)
 
 		queue_free()
-		
-	if area.get_parent().has_method("take_damage"):
-
-		area.get_parent().take_damage(damage)
-
-		queue_free()
-	

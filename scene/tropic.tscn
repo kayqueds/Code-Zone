@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://bes2p46skt65p" path="res://entities/skeleton.tscn" id="11_t8vtq"]
 [ext_resource type="PackedScene" uid="uid://7dkaekrflgga" path="res://entities/moving_platform.tscn" id="14_xflqb"]
 [ext_resource type="PackedScene" uid="uid://do6ppyeif7wlk" path="res://entities/player2.tscn" id="15_xnncp"]
+[ext_resource type="Texture2D" uid="uid://pg71abaymolb" path="res://sprites/BarraDeVida/BarraDeVIDA-PY.png" id="16_mjtd1"]
+[ext_resource type="Texture2D" uid="uid://b77w5smegb7md" path="res://sprites/BarraDeVida/BarraDeVIDA-JV.png" id="17_kjkl5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d18o5"]
 animations = [{
@@ -32,6 +34,92 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d18o5"]
 size = Vector2(20, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjkl5"]
+atlas = ExtResource("16_mjtd1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eg8f"]
+atlas = ExtResource("16_mjtd1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjwtm"]
+atlas = ExtResource("16_mjtd1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78wb"]
+atlas = ExtResource("16_mjtd1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kajwn"]
+atlas = ExtResource("16_mjtd1")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uehjn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjkl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eg8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjwtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kajwn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uehjn"]
+atlas = ExtResource("17_kjkl5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hohr6"]
+atlas = ExtResource("17_kjkl5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jepg"]
+atlas = ExtResource("17_kjkl5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwwm6"]
+atlas = ExtResource("17_kjkl5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovcmj"]
+atlas = ExtResource("17_kjkl5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l33ao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uehjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hohr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jepg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwwm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovcmj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Tropic" type="Node2D" unique_id=1797537914]
 metadata/_edit_vertical_guides_ = [520.0]
@@ -124,6 +212,7 @@ limit_bottom = 368
 
 [node name="Player" parent="." unique_id=1798572354 instance=ExtResource("1_bmxgx")]
 position = Vector2(31, 141)
+life_bar_path = NodePath("../HUD/LifeBar1")
 
 [node name="LevelEnd" parent="." unique_id=462203358 instance=ExtResource("10_d18o5")]
 position = Vector2(541, 139)
@@ -152,6 +241,18 @@ position = Vector2(158, 0)
 
 [node name="Player2" parent="." unique_id=453190765 instance=ExtResource("15_xnncp")]
 position = Vector2(144, 147)
+life_bar_path = NodePath("../HUD/LifeBar2")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=877863520]
+
+[node name="LifeBar1" type="AnimatedSprite2D" parent="HUD" unique_id=1746584068]
+position = Vector2(36, 39)
+sprite_frames = SubResource("SpriteFrames_uehjn")
+frame_progress = 1.0
+
+[node name="LifeBar2" type="AnimatedSprite2D" parent="HUD" unique_id=275505519]
+position = Vector2(83, 37)
+sprite_frames = SubResource("SpriteFrames_l33ao")
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]

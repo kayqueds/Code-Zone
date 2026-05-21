@@ -17,7 +17,7 @@ enum PlayerState {
 @onready var left_wall_detector = $LeftWallDetector
 @onready var right_wall_detector = $RightWallDetector
 
-# tiro normal, carregado
+# tiro normal e carregado
 @export var bullet_scene: PackedScene
 @export var charged_bullet_scene: PackedScene
 
@@ -25,6 +25,13 @@ enum PlayerState {
 
 var is_charging = false
 var charged_shot_ready = false
+
+# vida
+@export var max_life := 100
+var life := 100
+var invulnerable = false
+@export var life_bar_path : NodePath
+@onready var life_bar = get_node(life_bar_path)
 
 
 
@@ -47,14 +54,21 @@ var charged_shot_ready = false
 const JUMP_VELOCITY = -300.0
 
 var jump_count = 0
+
 @export var max_jump_count = 2
 
 var direction = 0
 var facing_direction = 1
+
 var status: PlayerState
 
 func _ready():
+
+	add_to_group("player")
+
 	go_to_idle_state()
+
+	update_life_bar()
 
 func _physics_process(delta):
 
@@ -82,42 +96,53 @@ func _physics_process(delta):
 			hurt_state(delta)
 
 	move_and_slide()
-	handle_shoot()
 
+	handle_shoot()
+		
+	if Input.is_action_just_pressed("ui-accept"):
+		take_damage(20)
 func go_to_idle_state():
 
 	status = PlayerState.idle
+
 	anim.play("idle")
 
 func go_to_walk_state():
 
 	status = PlayerState.walk
+
 	anim.play("walk")
 
 func go_to_jump_state():
 
 	status = PlayerState.jump
+
 	anim.play("jump")
 
 	velocity.y = JUMP_VELOCITY
+
 	jump_count += 1
 
 func go_to_fall_state():
 
 	status = PlayerState.fall
+
 	anim.play("fall")
 
 func go_to_wall_state():
 
 	status = PlayerState.wall
+
 	anim.play("wall")
 
 	velocity = Vector2.ZERO
+
 	jump_count = 0
 
 func go_to_swimming_state():
 
 	status = PlayerState.swimming
+
 	anim.play("swimming")
 
 	velocity.y = min(velocity.y, 150)
@@ -138,6 +163,7 @@ func go_to_hurt_state():
 func idle_state(delta):
 
 	apply_gravity(delta)
+
 	move(delta)
 
 	if velocity.x != 0:
@@ -151,6 +177,7 @@ func idle_state(delta):
 func walk_state(delta):
 
 	apply_gravity(delta)
+
 	move(delta)
 
 	if velocity.x == 0:
@@ -164,11 +191,13 @@ func walk_state(delta):
 	if !is_on_floor():
 
 		jump_count += 1
+
 		go_to_fall_state()
 
 func jump_state(delta):
 
 	apply_gravity(delta)
+
 	move(delta)
 
 	if Input.is_action_just_pressed(input_jump) and can_jump():
@@ -180,6 +209,7 @@ func jump_state(delta):
 func fall_state(delta):
 
 	apply_gravity(delta)
+
 	move(delta)
 
 	if Input.is_action_just_pressed(input_jump) and can_jump():
@@ -195,6 +225,7 @@ func fall_state(delta):
 			go_to_walk_state()
 
 	if (left_wall_detector.is_colliding() or right_wall_detector.is_colliding()) and is_on_wall():
+
 		go_to_wall_state()
 
 func wall_state(delta):
@@ -204,14 +235,17 @@ func wall_state(delta):
 	if left_wall_detector.is_colliding():
 
 		anim.flip_h = false
+
 		direction = 1
 
 	elif right_wall_detector.is_colliding():
 
 		anim.flip_h = true
+
 		direction = -1
 
 	else:
+
 		go_to_fall_state()
 
 	if is_on_floor():
@@ -220,6 +254,7 @@ func wall_state(delta):
 	if Input.is_action_just_pressed(input_jump):
 
 		velocity.x = wall_jump_velocity * direction
+
 		go_to_jump_state()
 
 func swimming_state(delta):
@@ -243,12 +278,15 @@ func swimming_state(delta):
 		)
 
 	velocity.y += water_acceleration * delta
+
 	velocity.y = min(velocity.y, water_max_speed)
 
 	if Input.is_action_just_pressed(input_jump):
+
 		velocity.y = water_jump_force
 
 func hurt_state(delta):
+
 	apply_gravity(delta)
 
 func move(delta):
@@ -274,6 +312,7 @@ func move(delta):
 func apply_gravity(delta):
 
 	if not is_on_floor():
+
 		velocity += get_gravity() * delta
 
 func update_direction():
@@ -283,17 +322,22 @@ func update_direction():
 	if direction < 0:
 
 		facing_direction = -1
+
 		anim.flip_h = true
+
 		gun_point.position.x = -12
 
 	elif direction > 0:
 
 		facing_direction = 1
-		anim.flip_h = false
-		gun_point.position.x = 12
-func can_jump() -> bool:
-	return jump_count < max_jump_count
 
+		anim.flip_h = false
+
+		gun_point.position.x = 12
+
+func can_jump() -> bool:
+
+	return jump_count < max_jump_count
 
 func handle_shoot():
 
@@ -301,6 +345,7 @@ func handle_shoot():
 	if Input.is_action_just_pressed("shoot_p1"):
 
 		is_charging = true
+
 		charged_shot_ready = false
 
 		charge_timer.start()
@@ -331,7 +376,6 @@ func shoot_normal():
 	else:
 		bullet.set_direction(Vector2.RIGHT)
 
-
 func shoot_charged():
 
 	if charged_bullet_scene == null:
@@ -348,15 +392,67 @@ func shoot_charged():
 	else:
 		bullet.set_direction(Vector2.RIGHT)
 
-func _on_reload_timer_timeout():
-	get_tree().reload_current_scene()
+func take_damage(damage_amount):
 
+	if invulnerable:
+		return
+
+	invulnerable = true
+
+	life -= damage_amount
+
+	life = clamp(life, 0, max_life)
+
+	update_life_bar()
+
+	print("Vida:", life)
+
+	modulate = Color.RED
+
+	await get_tree().create_timer(0.2).timeout
+
+	modulate = Color.WHITE
+
+	await get_tree().create_timer(0.5).timeout
+
+	invulnerable = false
+
+	if life <= 0:
+
+		die()
+
+
+
+func update_life_bar():
+
+	if life_bar == null:
+		return
+
+	if life >= 80:
+		life_bar.frame = 0
+
+	elif life >= 60:
+		life_bar.frame = 1
+
+	elif life >= 40:
+		life_bar.frame = 2
+
+	elif life >= 20:
+		life_bar.frame = 3
+
+	else:
+		life_bar.frame = 4
+
+func die():
+
+	go_to_hurt_state()
+
+func _on_reload_timer_timeout():
+
+	get_tree().reload_current_scene()
 
 func _on_charge_timer_timeout():
 
 	if is_charging:
+
 		charged_shot_ready = true
-							
-	
-	
-	
