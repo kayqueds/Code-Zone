@@ -152,6 +152,7 @@ animations = [{
 size = Vector2(12, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
+collision_layer = 2
 script = ExtResource("1_twc2l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910780751]
