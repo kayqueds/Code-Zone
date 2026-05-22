@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b54l1opw7dokf"]
+
+[ext_resource type="Texture2D" uid="uid://cu04qjf14wxno" path="res://sprites/2 - Robo_Python/ENERGIA_PY.png" id="1_ip6sl"]
+[ext_resource type="Script" uid="uid://dhvcn46agwbac" path="res://scripts/cura_item.gd" id="1_kwyqg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kwyqg"]
+radius = 9.0
+height = 24.0
+
+[node name="CuraItemJava" type="Area2D" unique_id=202087451]
+script = ExtResource("1_kwyqg")
+item_para = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=884916000]
+texture = ExtResource("1_ip6sl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1854806015]
+position = Vector2(-1, 1)
+shape = SubResource("CapsuleShape2D_kwyqg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

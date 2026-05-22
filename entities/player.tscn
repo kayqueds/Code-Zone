@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bd7qm8bs4spr0" path="res://scripts/player.gd" id="1_merdl"]
 [ext_resource type="PackedScene" uid="uid://dta6eyurdh7jh" path="res://scene/bullet.tscn" id="2_qly61"]
 [ext_resource type="PackedScene" uid="uid://bk6s83wge3q3n" path="res://scene/charged_bullet.tscn" id="3_qsoyl"]
+[ext_resource type="Texture2D" uid="uid://duug1ktpaxvfv" path="res://sprites/2 - Robo_Python/DanoeMorte..png" id="5_6nm46"]
 [ext_resource type="Texture2D" uid="uid://ce1e2pm43hu2y" path="res://sprites/2 - Robo_Python/SPRITE_PY_ RESPIRAR.png" id="6_x08pd"]
 [ext_resource type="Texture2D" uid="uid://b4165vg4eiga6" path="res://sprites/2 - Robo_Python/SPRITE_PY_ PULAR.png" id="7_dchgp"]
 [ext_resource type="Texture2D" uid="uid://b2js75xcnlly" path="res://sprites/2 - Robo_Python/SPRITE_PY_ ANDAR.png" id="10_kdgjc"]
@@ -16,6 +17,14 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qly61"]
 atlas = ExtResource("6_x08pd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i623q"]
+atlas = ExtResource("5_6nm46")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef06p"]
+atlas = ExtResource("5_6nm46")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0i8f"]
@@ -76,8 +85,14 @@ animations = [{
 "name": &"fall",
 "speed": 5.0
 }, {
-"frames": [],
-"loop": false,
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i623q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef06p")
+}],
+"loop": true,
 "name": &"hurt",
 "speed": 2.0
 }, {
@@ -160,8 +175,9 @@ shape = SubResource("RectangleShape2D_rfe5m")
 z_index = 1
 scale = Vector2(0.8125, 0.8125)
 sprite_frames = SubResource("SpriteFrames_i623q")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
+frame_progress = 0.84049296
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
 visible = false

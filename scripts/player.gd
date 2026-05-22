@@ -456,3 +456,21 @@ func _on_charge_timer_timeout():
 	if is_charging:
 
 		charged_shot_ready = true
+# cura		
+func curar(quantidade_cura):
+	# Se a vida já estiver cheia, retorna 'false' (o item não é coletado)
+	if life >= max_life:
+		return false
+	
+	life += quantidade_cura
+	life = clamp(life, 0, max_life) # Garante que não vai passar de 100
+	
+	update_life_bar()
+	print("Vida curada! Atual:", life)
+	
+	# Feedback visual rápido (pisca verde)
+	modulate = Color.GREEN
+	await get_tree().create_timer(0.2).timeout
+	modulate = Color.WHITE
+	
+	return true

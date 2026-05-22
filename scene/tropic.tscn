@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://do6ppyeif7wlk" path="res://entities/player2.tscn" id="15_xnncp"]
 [ext_resource type="Texture2D" uid="uid://pg71abaymolb" path="res://sprites/BarraDeVida/BarraDeVIDA-PY.png" id="16_mjtd1"]
 [ext_resource type="Texture2D" uid="uid://b77w5smegb7md" path="res://sprites/BarraDeVida/BarraDeVIDA-JV.png" id="17_kjkl5"]
+[ext_resource type="PackedScene" uid="uid://b54l1opw7dokf" path="res://entities/curaItem.tscn" id="18_3eg8f"]
+[ext_resource type="Texture2D" uid="uid://cu04qjf14wxno" path="res://sprites/2 - Robo_Python/ENERGIA_PY.png" id="19_cjwtm"]
+[ext_resource type="Texture2D" uid="uid://bthdf7yfk855f" path="res://sprites/3 - Robo_Java/ENERGIA_JAVA.png" id="20_b78wb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d18o5"]
 animations = [{
@@ -253,6 +256,15 @@ frame_progress = 1.0
 [node name="LifeBar2" type="AnimatedSprite2D" parent="HUD" unique_id=275505519]
 position = Vector2(83, 37)
 sprite_frames = SubResource("SpriteFrames_l33ao")
+
+[node name="Cura_Java" parent="." unique_id=1758650647 instance=ExtResource("18_3eg8f")]
+position = Vector2(126, 159)
+sprite_textura = ExtResource("20_b78wb")
+
+[node name="Cura_Python" parent="." unique_id=202087451 instance=ExtResource("18_3eg8f")]
+position = Vector2(146, 160)
+item_para = 0
+sprite_textura = ExtResource("19_cjwtm")
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]
