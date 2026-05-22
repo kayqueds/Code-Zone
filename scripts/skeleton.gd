@@ -15,6 +15,11 @@ const SPINNING_BONE = preload("res://entities/spinning_bone.tscn")
 @onready var player_detector: RayCast2D = $PlayerDetector
 @onready var bone_start_position: Node2D = $BoneStartPosition
 
+
+@export var item_cura_scene: PackedScene 
+@export_range(0, 100) var chance_drop: float = 40.0
+
+
 const SPEED = 7.0
 
 @export var max_health = 50
@@ -128,8 +133,32 @@ func take_damage(damage):
 	invulnerable = false
 
 func die():
-
+	# Chama a função que calcula a probabilidade de dropar o item
+	calcular_drop()
 	queue_free()
+
+func calcular_drop():
+	# Garante que colocamos a cena do item no Inspector
+	if item_cura_scene == null:
+		return
+
+	# randf() gera um número entre 0 e 1. Multiplicamos por 100 para virar porcentagem (0 a 100)
+	var numero_sorteado = randf() * 100.0
+	
+	print("Inimigo morreu! Número sorteado para o drop: ", numero_sorteado)
+
+	# Se o número sorteado for menor ou igual à nossa chance, o item spawna!
+	if numero_sorteado <= chance_drop:
+		var item_instanciado = item_cura_scene.instantiate()
+		
+		# Adiciona o item na fase (como irmão do esqueleto, para não sumir junto com ele)
+		get_parent().add_child(item_instanciado)
+		
+		# Define a posição do item exatamente onde o esqueleto morreu
+		item_instanciado.global_position = global_position
+		print("Item dropado com sucesso!")
+
+
 
 func throw_bone():
 

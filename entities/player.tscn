@@ -177,7 +177,7 @@ scale = Vector2(0.8125, 0.8125)
 sprite_frames = SubResource("SpriteFrames_i623q")
 animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.84049296
+frame_progress = 0.53728116
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
 visible = false
