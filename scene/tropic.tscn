@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://b77w5smegb7md" path="res://sprites/BarraDeVida/BarraDeVIDA-JV.png" id="17_kjkl5"]
 [ext_resource type="PackedScene" uid="uid://b54l1opw7dokf" path="res://entities/curaItem.tscn" id="18_3eg8f"]
 [ext_resource type="Texture2D" uid="uid://bthdf7yfk855f" path="res://sprites/3 - Robo_Java/ENERGIA_JAVA.png" id="20_b78wb"]
+[ext_resource type="AudioStream" uid="uid://bge58dtfo7nvl" path="res://sounds/intro.mp3" id="20_kajwn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d18o5"]
 animations = [{
@@ -214,7 +215,20 @@ limit_bottom = 368
 
 [node name="Player" parent="." unique_id=1798572354 instance=ExtResource("1_bmxgx")]
 position = Vector2(31, 141)
+max_life = 100
 life_bar_path = NodePath("../HUD/LifeBar1")
+max_speed = 180.0
+acceleration = 400
+deceleration = 400
+wall_acceleration = 40
+wall_jump_velocity = 240
+water_max_speed = 100
+water_acceleration = 200
+water_jump_force = -100
+input_left = "left_p1"
+input_right = "right_p1"
+input_jump = "jump_p1"
+max_jump_count = 2
 
 [node name="LevelEnd" parent="." unique_id=462203358 instance=ExtResource("10_d18o5")]
 position = Vector2(541, 139)
@@ -264,6 +278,11 @@ sprite_textura = ExtResource("20_b78wb")
 [node name="Cura2" parent="." unique_id=202087451 instance=ExtResource("18_3eg8f")]
 position = Vector2(487, 160)
 sprite_textura = ExtResource("20_b78wb")
+
+[node name="MusicaFundo" type="AudioStreamPlayer2D" parent="." unique_id=313516741]
+stream = ExtResource("20_kajwn")
+autoplay = true
+max_polyphony = 3
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]

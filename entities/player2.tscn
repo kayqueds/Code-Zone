@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://dfrirhmw07moe" path="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png" id="3_fbkpf"]
 [ext_resource type="Texture2D" uid="uid://5hr3y4aqwpj7" path="res://sprites/3 - Robo_Java/SPRITE_JV_PULAR.png" id="3_twc2l"]
 [ext_resource type="Texture2D" uid="uid://bo61mpenykjje" path="res://sprites/3 - Robo_Java/SPRITE_JV_ANDAR.png" id="5_mpnbi"]
+[ext_resource type="AudioStream" uid="uid://deaejvsdmcxuv" path="res://sounds/jump.wav" id="6_anflc"]
+[ext_resource type="AudioStream" uid="uid://b60f4gm0oiolf" path="res://sounds/life.wav" id="7_5xjde"]
+[ext_resource type="AudioStream" uid="uid://ckhqynkx4ajoo" path="res://sounds/hurt.wav" id="8_hrh5t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twc2l"]
 size = Vector2(21, 22)
@@ -191,6 +194,15 @@ target_position = Vector2(-7, 0)
 visible = false
 z_index = 10
 target_position = Vector2(7, 0)
+
+[node name="SomPulo" type="AudioStreamPlayer2D" parent="." unique_id=1171824433]
+stream = ExtResource("6_anflc")
+
+[node name="SomCura" type="AudioStreamPlayer2D" parent="." unique_id=2141297192]
+stream = ExtResource("7_5xjde")
+
+[node name="SomDano" type="AudioStreamPlayer2D" parent="." unique_id=1307910485]
+stream = ExtResource("8_hrh5t")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
