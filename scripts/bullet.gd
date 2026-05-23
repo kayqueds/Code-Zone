@@ -40,5 +40,11 @@ func _on_area_entered(area: Area2D) -> void:
 		print("CHAMANDO DANO NO BOSS")
 
 		boss.take_damage(damage)
+	if body.is_in_group("player"):
+		return
+
+	if body.has_method("take_damage"):
+
+		body.take_damage(damage)
 
 		queue_free()

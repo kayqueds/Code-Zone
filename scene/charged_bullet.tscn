@@ -54,23 +54,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bibm"]
-size = Vector2(20.25, 15)
+size = Vector2(25.750004, 15)
 
 [node name="Charged_Bullet" type="Area2D" unique_id=188579184]
-position = Vector2(-1, -3)
-collision_layer = 4
-collision_mask = 2
+position = Vector2(-2, -3)
 script = ExtResource("1_mt33h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]
-position = Vector2(0, 5)
-scale = Vector2(0.41666657, 0.4166667)
+position = Vector2(-6.625004, 9.536743e-07)
+scale = Vector2(0.7499997, 0.75)
 sprite_frames = SubResource("SpriteFrames_gofb6")
 autoplay = "default"
 frame_progress = 0.27257752
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474655065]
-position = Vector2(2.125, 5.5)
+position = Vector2(2.124998, 9.536743e-07)
 shape = SubResource("RectangleShape2D_4bibm")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
