@@ -17,8 +17,18 @@ enum PlayerState {
 @onready var hitbox_collision_shape: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var left_wall_detector: RayCast2D = $LeftWallDetector
 @onready var right_wall_detector: RayCast2D = $RightWallDetector
-
+@onready var shoot_sound = $ShootSound
 @onready var reload_timer: Timer = $ReloadTimer
+@onready var gun_point = $GunPoint
+@onready var charge_timer = $ChargeTimer
+
+# TIROS
+@export var bullet_scene: PackedScene
+@export var charged_bullet_scene: PackedScene
+
+var is_charging = false
+var charged_shot_ready = false
+var facing_direction = 1
 
 @export var max_speed = 180.0
 @export var acceleration = 400
@@ -78,6 +88,7 @@ func _physics_process(delta: float) -> void:
 			hurt_state(delta)
 
 	move_and_slide()
+	handle_shoot()
 
 func go_to_idle_state():
 	status = PlayerState.idle
@@ -344,10 +355,16 @@ func update_direction():
 	direction = Input.get_axis(input_left, input_right)
 
 	if direction < 0:
+
+		facing_direction = -1
 		anim.flip_h = true
+		gun_point.position.x = -12
 
 	elif direction > 0:
+
+		facing_direction = 1
 		anim.flip_h = false
+		gun_point.position.x = 12
 
 func can_jump() -> bool:
 	return jump_count < max_jump_count
@@ -390,14 +407,12 @@ func hit_enemy(area: Area2D):
 
 	if velocity.y > 0:
 
-		# inimigo morre
 		area.get_parent().take_damage()
 
 		go_to_jump_state()
 
 	else:
 
-		# player morre
 		go_to_hurt_state()
 
 func hit_lethal_area():
@@ -413,3 +428,64 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		jump_count = 0
 
 		go_to_jump_state()
+
+# =========================
+# TIRO PLAYER 2
+# =========================
+
+func handle_shoot():
+
+	if Input.is_action_just_pressed("shoot_p2"):
+
+		is_charging = true
+		charged_shot_ready = false
+
+		charge_timer.start()
+
+	if Input.is_action_just_released("shoot_p2"):
+
+		if charged_shot_ready:
+			shoot_charged()
+		else:
+			shoot_normal()
+
+		is_charging = false
+
+func shoot_normal():
+
+	if bullet_scene == null:
+		return
+		
+	shoot_sound.play()
+
+	var bullet = bullet_scene.instantiate()
+
+	get_parent().add_child(bullet)
+
+	bullet.global_position = gun_point.global_position
+
+	if facing_direction < 0:
+		bullet.set_direction(Vector2.LEFT)
+	else:
+		bullet.set_direction(Vector2.RIGHT)
+
+func shoot_charged():
+
+	if charged_bullet_scene == null:
+		return
+
+	var bullet = charged_bullet_scene.instantiate()
+
+	get_parent().add_child(bullet)
+
+	bullet.global_position = gun_point.global_position
+
+	if facing_direction < 0:
+		bullet.set_direction(Vector2.LEFT)
+	else:
+		bullet.set_direction(Vector2.RIGHT)
+
+func _on_charge_timer_timeout():
+
+	if is_charging:
+		charged_shot_ready = true

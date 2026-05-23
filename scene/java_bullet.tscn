@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://l2tnd7bt6lc6"]
+
+[ext_resource type="Script" uid="uid://bnnn64g4od8t" path="res://scripts/bullet.gd" id="1_mc2bl"]
+[ext_resource type="Texture2D" uid="uid://dfm3d7cm6c2xk" path="res://sprites/Sprites - Lasers Bullets #1 [66]v2.5/Laser Sprites/02.png" id="2_x3knt"]
+[ext_resource type="Texture2D" uid="uid://dxdehf4vf7deh" path="res://sprites/Sprites - Lasers Bullets #1 [66]v2.5/Laser Sprites/14.png" id="3_y5sjd"]
+[ext_resource type="Texture2D" uid="uid://bf3gtigfoeoe6" path="res://sprites/Sprites - Lasers Bullets #1 [66]v2.5/Laser Sprites/64.png" id="4_2hw6j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gofb6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x3knt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y5sjd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2hw6j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bibm"]
+size = Vector2(35, 8)
+
+[node name="Bullet" type="Area2D" unique_id=188579184]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_mc2bl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_gofb6")
+autoplay = "default"
+frame_progress = 0.6045278
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474655065]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_4bibm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
