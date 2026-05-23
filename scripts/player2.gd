@@ -32,6 +32,11 @@ var invulnerable = false
 @export var water_acceleration = 200
 @export var water_jump_force = -100
 
+#sons player 2
+@onready var som_pulo: AudioStreamPlayer2D = $SomPulo
+@onready var som_curar: AudioStreamPlayer2D = $SomCura
+@onready var som_dano: AudioStreamPlayer2D = $SomDano
+
 # INPUTS PLAYER 2
 @export var input_left := "left_p2"
 @export var input_right := "right_p2"
@@ -77,6 +82,7 @@ func go_to_jump_state():
 	anim.play("jump")
 	velocity.y = JUMP_VELOCITY
 	jump_count += 1
+	som_pulo.play()
 
 func go_to_fall_state():
 	status = PlayerState.fall
@@ -211,6 +217,7 @@ func take_damage(damage_amount):
 	life -= damage_amount
 	life = clamp(life, 0, max_life)
 	update_life_bar()
+	som_dano.play()
 	print("Vida P2:", life)
 
 	modulate = Color.RED
@@ -239,7 +246,9 @@ func curar(quantidade_cura) -> bool:
 	life += quantidade_cura
 	life = clamp(life, 0, max_life)
 	update_life_bar()
+	som_curar.play()
 	print(name, " curado! Vida atual: ", life)
+	
 	
 	# O intervalo do efeito verde roda aqui com segurança!
 	var antiga_cor = modulate

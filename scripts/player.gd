@@ -46,6 +46,16 @@ var invulnerable = false
 @export var input_right := "right_p1"
 @export var input_jump := "jump_p1"
 
+#sons player
+@onready var som_pulo: AudioStreamPlayer2D = $SomPulo
+@onready var som_tiro: AudioStreamPlayer2D = $SomTiro
+@onready var som_tiro_carregado: AudioStreamPlayer2D = $SomTiroCarregado
+@onready var som_carregando: AudioStreamPlayer2D = $SomCarregando
+@onready var som_curar: AudioStreamPlayer2D = $SomCura
+@onready var som_dano: AudioStreamPlayer2D = $SomDano
+
+
+
 const JUMP_VELOCITY = -300.0
 var jump_count = 0
 @export var max_jump_count = 2
@@ -89,7 +99,10 @@ func go_to_jump_state():
 	anim.play("jump")
 	velocity.y = JUMP_VELOCITY
 	jump_count += 1
-
+	
+	# Toca o som do pulo!
+	som_pulo.play()
+	
 func go_to_fall_state():
 	status = PlayerState.fall
 	anim.play("fall")
@@ -223,27 +236,38 @@ func handle_shoot():
 		is_charging = true
 		charged_shot_ready = false
 		charge_timer.start()
+		som_carregando.play()
 
 	if Input.is_action_just_released("shoot_p1"):
+		som_carregando.stop()
+		
 		if charged_shot_ready:
 			shoot_charged()
 		else:
 			shoot_normal()
+			
 		is_charging = false
+		charged_shot_ready = false
 
+	# Truque por código: Se o som acabar e o jogador AINDA estiver segurando o botão, toca de novo!
+	if is_charging and not som_carregando.playing:
+		som_carregando.play()
+		
 func shoot_normal():
 	if bullet_scene == null: return
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
 	bullet.global_position = gun_point.global_position
 	bullet.set_direction(Vector2.LEFT if facing_direction < 0 else Vector2.RIGHT)
-
+	som_tiro.play()
+	
 func shoot_charged():
 	if charged_bullet_scene == null: return
 	var bullet = charged_bullet_scene.instantiate()
 	get_parent().add_child(bullet)
 	bullet.global_position = gun_point.global_position
 	bullet.set_direction(Vector2.LEFT if facing_direction < 0 else Vector2.RIGHT)
+	som_tiro_carregado.play()
 
 func take_damage(damage_amount):
 	if invulnerable: return
@@ -252,6 +276,7 @@ func take_damage(damage_amount):
 	life = clamp(life, 0, max_life)
 	update_life_bar()
 	print("Vida:", life)
+	som_dano.play()
 
 	modulate = Color.RED
 	await get_tree().create_timer(0.2).timeout
@@ -278,7 +303,9 @@ func curar(quantidade_cura) -> bool:
 	life += quantidade_cura
 	life = clamp(life, 0, max_life)
 	update_life_bar()
+	som_curar.play()
 	print(name, " curado! Vida atual: ", life)
+	
 	
 	# O intervalo do efeito verde roda aqui com segurança!
 	var antiga_cor = modulate
