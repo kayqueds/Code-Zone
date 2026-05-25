@@ -232,6 +232,13 @@ func can_jump() -> bool:
 
 # ==================== COMBATE E SISTEMAS ====================
 func handle_shoot():
+	if status == PlayerState.hurt:
+		if som_carregando.playing:
+			som_carregando.stop()
+		is_charging = false
+		charged_shot_ready = false
+		return
+		
 	if Input.is_action_just_pressed("shoot_p1"):
 		is_charging = true
 		charged_shot_ready = false
@@ -323,3 +330,7 @@ func _on_reload_timer_timeout():
 func _on_charge_timer_timeout():
 	if is_charging:
 		charged_shot_ready = true
+		
+# recebe dano do projetil		
+func receber_dano(quantidade: int) -> void:
+	take_damage(quantidade)

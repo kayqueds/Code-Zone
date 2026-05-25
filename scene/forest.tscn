@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://nm82sifvd23i" path="res://entities/level_end.tscn" id="12_64es3"]
 [ext_resource type="PackedScene" uid="uid://bes2p46skt65p" path="res://entities/skeleton.tscn" id="13_kmspj"]
 [ext_resource type="PackedScene" uid="uid://do6ppyeif7wlk" path="res://entities/player2.tscn" id="15_boiax"]
+[ext_resource type="Texture2D" uid="uid://pg71abaymolb" path="res://sprites/BarraDeVida/BarraDeVIDA-PY.png" id="16_p7yhu"]
+[ext_resource type="Texture2D" uid="uid://b77w5smegb7md" path="res://sprites/BarraDeVida/BarraDeVIDA-JV.png" id="17_cwbpd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwku7"]
 texture = ExtResource("3_jxvlp")
@@ -65,11 +67,111 @@ size = Vector2(20, 180)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ja8kk"]
 size = Vector2(13, 207)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjkl5"]
+atlas = ExtResource("16_p7yhu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eg8f"]
+atlas = ExtResource("16_p7yhu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjwtm"]
+atlas = ExtResource("16_p7yhu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b78wb"]
+atlas = ExtResource("16_p7yhu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kajwn"]
+atlas = ExtResource("16_p7yhu")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ysu3w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjkl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eg8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjwtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b78wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kajwn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uehjn"]
+atlas = ExtResource("17_cwbpd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hohr6"]
+atlas = ExtResource("17_cwbpd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jepg"]
+atlas = ExtResource("17_cwbpd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwwm6"]
+atlas = ExtResource("17_cwbpd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovcmj"]
+atlas = ExtResource("17_cwbpd")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dki5c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uehjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hohr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jepg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwwm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovcmj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Forest" type="Node2D" unique_id=990480343]
 metadata/_edit_vertical_guides_ = [620.0]
 
 [node name="Player" parent="." unique_id=2129588684 instance=ExtResource("1_e2knd")]
 position = Vector2(11, 180)
+max_life = 100
+life_bar_path = NodePath("../HUD/LifeBar1")
+max_speed = 180.0
+acceleration = 400
+deceleration = 400
+wall_acceleration = 40
+wall_jump_velocity = 240
+water_max_speed = 100
+water_acceleration = 200
+water_jump_force = -100
+input_left = "left_p1"
+input_right = "right_p1"
+input_jump = "jump_p1"
+max_jump_count = 2
 
 [node name="TileMaps" type="Node" parent="." unique_id=1886595809]
 
@@ -187,5 +289,16 @@ shape = SubResource("RectangleShape2D_ja8kk")
 
 [node name="Player2" parent="." unique_id=453190765 instance=ExtResource("15_boiax")]
 position = Vector2(62, 181)
+life_bar_path = NodePath("../HUD/LifeBar2")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=653496775]
+
+[node name="LifeBar1" type="AnimatedSprite2D" parent="HUD" unique_id=1632253283]
+position = Vector2(36, 39)
+sprite_frames = SubResource("SpriteFrames_ysu3w")
+
+[node name="LifeBar2" type="AnimatedSprite2D" parent="HUD" unique_id=1457244487]
+position = Vector2(83, 37)
+sprite_frames = SubResource("SpriteFrames_dki5c")
 
 [editable path="LevelEnd"]

@@ -8,7 +8,7 @@ var direction = Vector2.RIGHT
 
 func _ready():
 
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(0.2).timeout
 	queue_free()
 
 func _physics_process(delta):

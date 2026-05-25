@@ -20,7 +20,7 @@ const SPINNING_BONE = preload("res://entities/spinning_bone.tscn")
 @export_range(0, 100) var chance_drop: float = 40.0
 
 
-const SPEED = 7.0
+const SPEED = 20.0
 
 @export var max_health = 50
 
@@ -152,7 +152,7 @@ func calcular_drop():
 		var item_instanciado = item_cura_scene.instantiate()
 		
 		# Adiciona o item na fase (como irmão do esqueleto, para não sumir junto com ele)
-		get_parent().add_child(item_instanciado)
+		get_parent().call_deferred("add_child" , item_instanciado)
 		
 		# Define a posição do item exatamente onde o esqueleto morreu
 		item_instanciado.global_position = global_position
