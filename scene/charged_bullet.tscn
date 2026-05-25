@@ -65,7 +65,7 @@ position = Vector2(-6.625004, 9.536743e-07)
 scale = Vector2(0.7499997, 0.75)
 sprite_frames = SubResource("SpriteFrames_gofb6")
 autoplay = "default"
-frame_progress = 0.27257752
+frame_progress = 0.6264461
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474655065]
 position = Vector2(2.124998, 9.536743e-07)
