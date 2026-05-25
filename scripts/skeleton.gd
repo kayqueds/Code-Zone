@@ -152,7 +152,7 @@ func calcular_drop():
 		var item_instanciado = item_cura_scene.instantiate()
 		
 		# Adiciona o item na fase (como irmão do esqueleto, para não sumir junto com ele)
-		get_parent().add_child(item_instanciado)
+		get_parent().call_deferred("add_child" , item_instanciado)
 		
 		# Define a posição do item exatamente onde o esqueleto morreu
 		item_instanciado.global_position = global_position
