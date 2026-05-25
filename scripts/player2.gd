@@ -262,3 +262,8 @@ func die():
 
 func _on_reload_timer_timeout():
 	get_tree().reload_current_scene()
+	
+# recebe dano do projetil		
+func receber_dano(quantidade: int) -> void:
+	take_damage(quantidade)
+	

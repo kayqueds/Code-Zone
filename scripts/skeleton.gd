@@ -20,7 +20,7 @@ const SPINNING_BONE = preload("res://entities/spinning_bone.tscn")
 @export_range(0, 100) var chance_drop: float = 40.0
 
 
-const SPEED = 7.0
+const SPEED = 20.0
 
 @export var max_health = 50
 
