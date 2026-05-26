@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 var speed = 160.0
 var jump_velocity = -300.0
+var life: int = 100
+var max_life: int = 100
+var invulnerable: bool = false
 
 var dir
 
@@ -102,40 +105,53 @@ func invert_move(delta):
 	pass
 
 func animations():
+	anim.flip_v = is_inverted
 	
-	if is_inverted:
-		anim.flip_v = true
-	else:
-		anim.flip_v = false
+
+	var esta_apoiado = is_on_floor() if not is_inverted else is_on_ceiling()
 	
-	if velocity.x != 0 and is_on_floor():
+	if velocity.x != 0 and esta_apoiado:
 		anim.play("walk")
-	elif velocity.x == 0 and is_on_floor():
+	elif velocity.x == 0 and esta_apoiado:
 		anim.play("idle")
 	
-	if not is_on_floor() and extra_jumps >= 1:
+	if not esta_apoiado:
 		anim.play("jump")
 	
+	# Flip horizontal baseado na direção
 	if dir > 0:
 		anim.flip_h = false
 	elif dir < 0:
 		anim.flip_h = true
-	
-	pass
 
+# morte
 func die():
-	
 	if is_alive:
-		
 		is_alive = false
-		anim.play("hit")
-		
-		$Area2D.queue_free()
-		$CollisionShape2D.queue_free()
-		velocity.y = jump_velocity - 100
-		
-		await get_tree().create_timer(1).timeout
-		
+		anim.play("hurt")
+		velocity.y = jump_velocity - 100 
+		await get_tree().create_timer(1.0).timeout
 		get_tree().reload_current_scene()
+
+
+# dano
+func receber_dano(quantidade: int) -> void:
+	if invulnerable or not is_alive: 
+		return
+		
+	invulnerable = true
+	life = clamp(life - quantidade, 0, max_life)
+	print("Vida do ", name, ": ", life) # Avisa no console
 	
-	pass
+	# Feedback Visual: Pisca em vermelho
+	modulate = Color.RED
+	await get_tree().create_timer(0.15).timeout
+	modulate = Color.WHITE
+	
+	if life <= 0:
+		die()
+	else:
+		await get_tree().create_timer(0.4).timeout
+		invulnerable = false
+		
+		

@@ -1,354 +1,191 @@
 extends CharacterBody2D
+# mecanica base
+var speed = 160.0
+var jump_velocity = -300.0
+var life: int = 100
+var max_life: int = 100
+var invulnerable: bool = false
 
-enum PlayerState {
-	idle,
-	walk,
-	jump,
-	fall,
-	wall,
-	swimming,
-	hurt
-}
-
-@onready var gun_point = $GunPoint
+var dir
+var gravity = 980
+var extra_jumps = 1
+# animações
 @onready var anim = $AnimatedSprite2D
-@onready var reload_timer = $ReloadTimer
-@onready var left_wall_detector = $LeftWallDetector
-@onready var right_wall_detector = $RightWallDetector
-@onready var charge_timer = $ChargeTimer
+@onready var gun_point = $GunPoint # Referência necessária para a Arma
 
-# Tiro normal e carregado
-@export var bullet_scene: PackedScene
-@export var charged_bullet_scene: PackedScene
-
-var is_charging = false
-var charged_shot_ready = false
-
-# Vida e Interface
-@export var max_life := 100
-@export var life_bar_path : NodePath
-@onready var life_bar = get_node(life_bar_path)
-var life := 100
-var invulnerable = false
-
-# Movimentação e Física
-@export var max_speed = 180.0
-@export var acceleration = 400
-@export var deceleration = 400
-@export var wall_acceleration = 40
-@export var wall_jump_velocity = 240
-@export var water_max_speed = 100
-@export var water_acceleration = 200
-@export var water_jump_force = -100
-
-# Inputs customizáveis por Instância
-@export var input_left := "left_p1"
-@export var input_right := "right_p1"
-@export var input_jump := "jump_p1"
-
-#sons player
+# Nós de Áudio que já estão no seu Player
 @onready var som_pulo: AudioStreamPlayer2D = $SomPulo
 @onready var som_tiro: AudioStreamPlayer2D = $SomTiro
 @onready var som_tiro_carregado: AudioStreamPlayer2D = $SomTiroCarregado
 @onready var som_carregando: AudioStreamPlayer2D = $SomCarregando
-@onready var som_curar: AudioStreamPlayer2D = $SomCura
 @onready var som_dano: AudioStreamPlayer2D = $SomDano
+@onready var som_cura: AudioStreamPlayer2D = $SomCura
 
-# gravidade invertida
-@export var comeca_gravidade_invertida: bool = false
-var gravidade_invertida: bool = false
 
-const JUMP_VELOCITY = -300.0
-var jump_count = 0
-@export var max_jump_count = 2
+var is_alive = true
 
-var direction = 0
-var facing_direction = 1
-var status: PlayerState
+@export var is_inverted = false
+# movimentos
+@export var input_left := "left_p1"
+@export var input_right := "right_p1"
+@export var input_jump := "jump_p1"
 
-func _ready():
-	add_to_group("player")
-	go_to_idle_state()
+# barra de vida
+var life_bar: AnimatedSprite2D = null
+
+func _ready() -> void:
+	life_bar = get_tree().current_scene.find_child("LifeBar1", true, false)
 	update_life_bar()
-	if comeca_gravidade_invertida:
-		gravidade_invertida = true
-		anim.flip_v = true
-		up_direction = Vector2.UP * -1
-	else:
-		gravidade_invertida = false
-		anim.flip_v = false
-		up_direction = Vector2.UP
+	pass
 
-func _physics_process(delta):
-	match status:
-		PlayerState.idle: idle_state(delta)
-		PlayerState.walk: walk_state(delta)
-		PlayerState.jump: jump_state(delta)
-		PlayerState.fall: fall_state(delta)
-		PlayerState.wall: wall_state(delta)
-		PlayerState.hurt: hurt_state(delta)
+func _physics_process(delta: float) -> void:
+	set_gravity()
+	
+	invert_move(delta)
+	move(delta)
+	
+	if is_alive:
+		animations()
 
-	move_and_slide()
-	handle_shoot()
-		
-	if Input.is_action_just_pressed("ui-accept"):
-		take_damage(20)
+func set_gravity():
 	if Input.is_action_just_pressed("inverter_gravidade"):
-		alternar_gravidade()
-
-	# ... (mantenha o seu match status e move_and_slide() exatamente igual)	
-
-# ==================== ESTADOS ====================
-func go_to_idle_state():
-	status = PlayerState.idle
-	anim.play("idle")
-
-func go_to_walk_state():
-	status = PlayerState.walk
-	anim.play("walk")
-
-func go_to_jump_state():
-	status = PlayerState.jump
-	anim.play("jump")
-	velocity.y = JUMP_VELOCITY
-	jump_count += 1
-	
-	# Toca o som do pulo!
-	som_pulo.play()
-	
-func go_to_fall_state():
-	status = PlayerState.fall
-	anim.play("fall")
-
-func go_to_wall_state():
-	status = PlayerState.wall
-	anim.play("wall")
-	velocity = Vector2.ZERO
-	jump_count = 0
-
-
-func go_to_hurt_state():
-	if status == PlayerState.hurt:
-		return
-	status = PlayerState.hurt
-	anim.play("hurt")
-	velocity.x = 0
-	reload_timer.start()
-
-# ==================== COMPORTAMENTOS DOS ESTADOS ====================
-func idle_state(delta):
-	apply_gravity(delta)
-	move(delta)
-	if velocity.x != 0:
-		go_to_walk_state()
-		return
-	if Input.is_action_just_pressed(input_jump):
-		go_to_jump_state()
-		return
-
-func walk_state(delta):
-	apply_gravity(delta)
-	move(delta)
-	if velocity.x == 0:
-		go_to_idle_state()
-		return
-	if Input.is_action_just_pressed(input_jump):
-		go_to_jump_state()
-		return
-	if !is_on_floor():
-		jump_count += 1
-		go_to_fall_state()
-
-func jump_state(delta):
-	apply_gravity(delta)
-	move(delta)
-	if Input.is_action_just_pressed(input_jump) and can_jump():
-		go_to_jump_state()
-	if velocity.y > 0:
-		go_to_fall_state()
-
-func fall_state(delta):
-	apply_gravity(delta)
-	move(delta)
-	if Input.is_action_just_pressed(input_jump) and can_jump():
-		go_to_jump_state()
-	if is_on_floor():
-		jump_count = 0
-		if velocity.x == 0:
-			go_to_idle_state()
-		else:
-			go_to_walk_state()
-	if (left_wall_detector.is_colliding() or right_wall_detector.is_colliding()) and is_on_wall():
-		go_to_wall_state()
-
-func wall_state(delta):
-	velocity.y += wall_acceleration * delta
-	if left_wall_detector.is_colliding():
-		anim.flip_h = false
-		direction = 1
-	elif right_wall_detector.is_colliding():
-		anim.flip_h = true
-		direction = -1
-	else:
-		go_to_fall_state()
-
-	if is_on_floor():
-		go_to_idle_state()
-	if Input.is_action_just_pressed(input_jump):
-		velocity.x = wall_jump_velocity * direction
-		go_to_jump_state()
-
-
-func hurt_state(delta):
-	apply_gravity(delta)
-
-# ==================== MECÂNICAS GERAIS ====================
-func move(delta):
-	update_direction()
-	if direction:
-		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
-		move_and_slide()
-
-func apply_gravity(delta):
-	# Checa chão ou teto dependendo de onde o player está "pisando"
-	if not is_on_floor() and not is_on_ceiling():
-		if gravidade_invertida:
-			velocity -= get_gravity() * delta # Puxa para o TETO
-		else:
-			velocity += get_gravity() * delta # Puxa para o CHÃO
-
-func alternar_gravidade():
-	gravidade_invertida = !gravidade_invertida
-	
-	# Gira o sprite verticalmente
-	anim.flip_v = gravidade_invertida
-	
-	# Altera a direção que a Godot considera como "CHÃO" para as funções de física
-	if gravidade_invertida:
-		up_direction = Vector2.UP * -1
-	else:
-		up_direction = Vector2.UP
+		is_inverted = !is_inverted
 		
-	
-	velocity.y = 50.0 if gravidade_invertida else -50.0
+		# Ajusta o que a Godot considera "TETO" ou "CHÃO"
+		up_direction = Vector2.DOWN if is_inverted else Vector2.UP
 
-func update_direction():
-	direction = Input.get_axis(input_left, input_right)
-	if direction < 0:
-		facing_direction = -1
-		anim.flip_h = true
-		gun_point.position.x = -12
-	elif direction > 0:
-		facing_direction = 1
+func move(delta):
+	if is_inverted:
+		return
+	
+	if is_alive:
+		dir = Input.get_axis(input_left , input_right)
+	
+	if dir:
+		velocity.x = dir * speed
+	elif dir == 0:
+		velocity.x = 0
+	
+	velocity.y += gravity * delta
+	
+	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
+		velocity.y = jump_velocity
+		extra_jumps -= 1
+		som_pulo.play() # Toca som de pulo normal
+	
+	if is_on_floor():
+		extra_jumps = 1
+	
+	move_and_slide()
+
+func invert_move(delta):
+	if not is_inverted:
+		return
+	
+	if is_alive:
+		dir = Input.get_axis(input_left , input_right)
+	
+	if dir:
+		velocity.x = dir * speed
+	elif dir == 0:
+		velocity.x = 0
+	
+	velocity.y += -gravity * delta
+	
+	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
+		velocity.y = -jump_velocity
+		extra_jumps -= 1
+		som_pulo.play() # Toca som de pulo invertido
+	
+	if is_on_ceiling():
+		extra_jumps = 1
+	
+	move_and_slide()
+
+func animations():
+	anim.flip_v = is_inverted
+	
+	var esta_apoiado = is_on_floor() if not is_inverted else is_on_ceiling()
+	
+	if velocity.x != 0 and esta_apoiado:
+		anim.play("walk")
+	elif velocity.x == 0 and esta_apoiado:
+		anim.play("idle")
+	
+	if not esta_apoiado:
+		anim.play("jump")
+	
+	# Flip horizontal baseado na direção e ajusta o GunPoint
+	if dir > 0:
 		anim.flip_h = false
 		gun_point.position.x = 12
+	elif dir < 0:
+		anim.flip_h = true
+		gun_point.position.x = -12
 
-func can_jump() -> bool:
-	return jump_count < max_jump_count
-
-# ==================== COMBATE E SISTEMAS ====================
-func handle_shoot():
-	if status == PlayerState.hurt:
+# morte
+func die():
+	if is_alive:
+		is_alive = false
 		if som_carregando.playing:
 			som_carregando.stop()
-		is_charging = false
-		charged_shot_ready = false
+		anim.play("hurt")
+		velocity.y = jump_velocity - 100 
+		await get_tree().create_timer(1.0).timeout
+		get_tree().reload_current_scene()
+
+# dano
+func receber_dano(quantidade: int) -> void:
+	if invulnerable or not is_alive: 
 		return
 		
-	if Input.is_action_just_pressed("shoot_p1"):
-		is_charging = true
-		charged_shot_ready = false
-		charge_timer.start()
-		som_carregando.play()
-
-	if Input.is_action_just_released("shoot_p1"):
-		som_carregando.stop()
-		
-		if charged_shot_ready:
-			shoot_charged()
-		else:
-			shoot_normal()
-			
-		is_charging = false
-		charged_shot_ready = false
-
-	# Truque por código: Se o som acabar e o jogador AINDA estiver segurando o botão, toca de novo!
-	if is_charging and not som_carregando.playing:
-		som_carregando.play()
-		
-func shoot_normal():
-	if bullet_scene == null: return
-	var bullet = bullet_scene.instantiate()
-	get_parent().add_child(bullet)
-	bullet.global_position = gun_point.global_position
-	bullet.set_direction(Vector2.LEFT if facing_direction < 0 else Vector2.RIGHT)
-	som_tiro.play()
-	
-func shoot_charged():
-	if charged_bullet_scene == null: return
-	var bullet = charged_bullet_scene.instantiate()
-	get_parent().add_child(bullet)
-	bullet.global_position = gun_point.global_position
-	bullet.set_direction(Vector2.LEFT if facing_direction < 0 else Vector2.RIGHT)
-	som_tiro_carregado.play()
-
-func take_damage(damage_amount):
-	if invulnerable: return
 	invulnerable = true
-	life -= damage_amount
-	life = clamp(life, 0, max_life)
+	life = clamp(life - quantidade, 0, max_life)
+	print("Vida do ", name, ": ", life)
 	update_life_bar()
-	print("Vida:", life)
-	som_dano.play()
-
+	som_dano.play() # Toca som de dano
+	
 	modulate = Color.RED
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.15).timeout
 	modulate = Color.WHITE
-	await get_tree().create_timer(0.5).timeout
-	invulnerable = false
-
+	
 	if life <= 0:
 		die()
+	else:
+		await get_tree().create_timer(0.4).timeout
+		invulnerable = false
 
+
+# atualizar vida
 func update_life_bar():
-	if life_bar == null: return
-	if life >= 80: life_bar.frame = 0
-	elif life >= 60: life_bar.frame = 1
-	elif life >= 40: life_bar.frame = 2
-	elif life >= 20: life_bar.frame = 3
-	else: life_bar.frame = 4
+	if life_bar == null: 
+		return
+	if life >= 80: 
+		life_bar.frame = 0    # Cheia
+	elif life >= 60: 
+		life_bar.frame = 1  # 3/4
+	elif life >= 40: 
+		life_bar.frame = 2  # Metade
+	elif life >= 20: 
+		life_bar.frame = 3  # Quase vazia
+	else: 
+		life_bar.frame = 4            # Crítica / Vazia
 
-func curar(quantidade_cura) -> bool:
-	if life >= max_life:
-		print("Vida já está cheia, item não coletado.")
-		return false
-	
-	life += quantidade_cura
-	life = clamp(life, 0, max_life)
-	update_life_bar()
-	som_curar.play()
-	print(name, " curado! Vida atual: ", life)
-	
-	
-	# O intervalo do efeito verde roda aqui com segurança!
-	var antiga_cor = modulate
-	modulate = Color.GREEN
-	await get_tree().create_timer(0.2).timeout
-	modulate = antiga_cor
-	
-	return true
-func die():
-	go_to_hurt_state()
-
-func _on_reload_timer_timeout():
-	get_tree().reload_current_scene()
-
-func _on_charge_timer_timeout():
-	if is_charging:
-		charged_shot_ready = true
+# cura
+func curar(quantidade: int) -> bool:
+	if not is_alive or life >= max_life:
+		return false # Não curou porque está morto ou cheio
 		
-# recebe dano do projetil		
-func receber_dano(quantidade: int) -> void:
-	take_damage(quantidade)
+	life = clamp(life + quantidade, 0, max_life)
+	print("Vida de ", name, " curada para: ", life)
+	
+	update_life_bar()
+	
+	if som_cura:
+		som_cura.play() 
+	
+	modulate = Color.GREEN
+	await get_tree().create_timer(0.15).timeout
+	modulate = Color.WHITE
+	
+	return true # Avisa que a cura deu certo!

@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b4uyanguafauh"]
 
-[ext_resource type="Script" uid="uid://eifv8xwmcx5s" path="res://scripts/new_player.gd" id="1_dchgp"]
+[ext_resource type="Script" uid="uid://bd7qm8bs4spr0" path="res://scripts/player.gd" id="1_dchgp"]
+[ext_resource type="PackedScene" uid="uid://dta6eyurdh7jh" path="res://scene/bullet.tscn" id="2_q0i8f"]
+[ext_resource type="PackedScene" uid="uid://bk6s83wge3q3n" path="res://scene/charged_bullet.tscn" id="3_0i614"]
 [ext_resource type="Texture2D" uid="uid://duug1ktpaxvfv" path="res://sprites/2 - Robo_Python/DanoeMorte..png" id="5_6nm46"]
 [ext_resource type="Texture2D" uid="uid://ce1e2pm43hu2y" path="res://sprites/2 - Robo_Python/SPRITE_PY_ RESPIRAR.png" id="6_x08pd"]
 [ext_resource type="Texture2D" uid="uid://b4165vg4eiga6" path="res://sprites/2 - Robo_Python/SPRITE_PY_ PULAR.png" id="7_dchgp"]
@@ -233,6 +235,8 @@ position = Vector2(12, 3)
 
 [node name="Gun" type="Node2D" parent="." unique_id=480433905]
 script = ExtResource("14_q0i8f")
+bullet_scene = ExtResource("2_q0i8f")
+charged_bullet_scene = ExtResource("3_0i614")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
