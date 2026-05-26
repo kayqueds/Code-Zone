@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://b4uyanguafauh"]
+[gd_scene load_steps=31 format=3 uid="uid://b4uyanguafauh"]
 
-[ext_resource type="Script" uid="uid://bd7qm8bs4spr0" path="res://scripts/player.gd" id="1_merdl"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_merdl"]
 [ext_resource type="PackedScene" uid="uid://dta6eyurdh7jh" path="res://scene/bullet.tscn" id="2_qly61"]
 [ext_resource type="PackedScene" uid="uid://bk6s83wge3q3n" path="res://scene/charged_bullet.tscn" id="3_qsoyl"]
 [ext_resource type="Texture2D" uid="uid://duug1ktpaxvfv" path="res://sprites/2 - Robo_Python/DanoeMorte..png" id="5_6nm46"]
@@ -166,7 +166,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nm46"]
 size = Vector2(12, 15)
 
-[node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_merdl")
 bullet_scene = ExtResource("2_qly61")
@@ -186,66 +186,66 @@ input_right = null
 input_jump = null
 max_jump_count = null
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910780751]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 2
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_rfe5m")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1241513824]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 scale = Vector2(0.8125, 0.8125)
 sprite_frames = SubResource("SpriteFrames_i623q")
 animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.53728116
+frame_progress = 0.537281
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
+[node name="Hitbox" type="Area2D" parent="."]
 visible = false
 z_index = 10
 collision_layer = 2
 collision_mask = 52
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=779135985]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_6nm46")
 debug_color = Color(0.95774, 0, 0.53094, 0.42)
 
-[node name="ReloadTimer" type="Timer" parent="." unique_id=1860496855]
+[node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="LeftWallDetector" type="RayCast2D" parent="." unique_id=1661516458]
+[node name="LeftWallDetector" type="RayCast2D" parent="."]
 visible = false
 z_index = 10
 target_position = Vector2(-7, 0)
 
-[node name="RightWallDetector" type="RayCast2D" parent="." unique_id=1372412139]
+[node name="RightWallDetector" type="RayCast2D" parent="."]
 visible = false
 z_index = 10
 target_position = Vector2(7, 0)
 
-[node name="GunPoint" type="Marker2D" parent="." unique_id=64347479]
+[node name="GunPoint" type="Marker2D" parent="."]
 position = Vector2(12, 3)
 
-[node name="ChargeTimer" type="Timer" parent="." unique_id=48754045]
+[node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 0.8
 one_shot = true
 
-[node name="SomPulo" type="AudioStreamPlayer2D" parent="." unique_id=1973061406]
+[node name="SomPulo" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_tjdhl")
 
-[node name="SomTiro" type="AudioStreamPlayer2D" parent="." unique_id=955622099]
+[node name="SomTiro" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_i623q")
 
-[node name="SomTiroCarregado" type="AudioStreamPlayer2D" parent="." unique_id=986904085]
+[node name="SomTiroCarregado" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ef06p")
 
-[node name="SomCarregando" type="AudioStreamPlayer2D" parent="." unique_id=1512222266]
+[node name="SomCarregando" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_x08pd")
 
-[node name="SomCura" type="AudioStreamPlayer2D" parent="." unique_id=1096457184]
+[node name="SomCura" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_dchgp")
 
-[node name="SomDano" type="AudioStreamPlayer2D" parent="." unique_id=2049553789]
+[node name="SomDano" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_kdgjc")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
