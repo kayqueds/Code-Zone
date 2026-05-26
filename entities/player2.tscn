@@ -167,7 +167,6 @@ animation = &"jump"
 autoplay = "idle"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
-visible = false
 z_index = 10
 collision_layer = 2
 collision_mask = 52

@@ -185,7 +185,5 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		go_to_walk_state()
 		
 func _on_hitbox_body_entered(body):
-
-	if body.is_in_group("player"):
-
-		body.take_damage(20)
+	if body.has_method("receber_dano"):
+		body.receber_dano(20)
