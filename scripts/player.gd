@@ -54,7 +54,9 @@ var invulnerable = false
 @onready var som_curar: AudioStreamPlayer2D = $SomCura
 @onready var som_dano: AudioStreamPlayer2D = $SomDano
 
-
+# gravidade invertida
+@export var comeca_gravidade_invertida: bool = false
+var gravidade_invertida: bool = false
 
 const JUMP_VELOCITY = -300.0
 var jump_count = 0
@@ -68,6 +70,14 @@ func _ready():
 	add_to_group("player")
 	go_to_idle_state()
 	update_life_bar()
+	if comeca_gravidade_invertida:
+		gravidade_invertida = true
+		anim.flip_v = true
+		up_direction = Vector2.UP * -1
+	else:
+		gravidade_invertida = false
+		anim.flip_v = false
+		up_direction = Vector2.UP
 
 func _physics_process(delta):
 	match status:
@@ -76,7 +86,6 @@ func _physics_process(delta):
 		PlayerState.jump: jump_state(delta)
 		PlayerState.fall: fall_state(delta)
 		PlayerState.wall: wall_state(delta)
-		PlayerState.swimming: swimming_state(delta)
 		PlayerState.hurt: hurt_state(delta)
 
 	move_and_slide()
@@ -84,6 +93,10 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("ui-accept"):
 		take_damage(20)
+	if Input.is_action_just_pressed("inverter_gravidade"):
+		alternar_gravidade()
+
+	# ... (mantenha o seu match status e move_and_slide() exatamente igual)	
 
 # ==================== ESTADOS ====================
 func go_to_idle_state():
@@ -113,10 +126,6 @@ func go_to_wall_state():
 	velocity = Vector2.ZERO
 	jump_count = 0
 
-func go_to_swimming_state():
-	status = PlayerState.swimming
-	anim.play("swimming")
-	velocity.y = min(velocity.y, 150)
 
 func go_to_hurt_state():
 	if status == PlayerState.hurt:
@@ -189,17 +198,6 @@ func wall_state(delta):
 		velocity.x = wall_jump_velocity * direction
 		go_to_jump_state()
 
-func swimming_state(delta):
-	update_direction()
-	if direction:
-		velocity.x = move_toward(velocity.x, water_max_speed * direction, water_acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, water_acceleration * delta)
-	
-	velocity.y += water_acceleration * delta
-	velocity.y = min(velocity.y, water_max_speed)
-	if Input.is_action_just_pressed(input_jump):
-		velocity.y = water_jump_force
 
 func hurt_state(delta):
 	apply_gravity(delta)
@@ -211,10 +209,30 @@ func move(delta):
 		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+		move_and_slide()
 
 func apply_gravity(delta):
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	# Checa chão ou teto dependendo de onde o player está "pisando"
+	if not is_on_floor() and not is_on_ceiling():
+		if gravidade_invertida:
+			velocity -= get_gravity() * delta # Puxa para o TETO
+		else:
+			velocity += get_gravity() * delta # Puxa para o CHÃO
+
+func alternar_gravidade():
+	gravidade_invertida = !gravidade_invertida
+	
+	# Gira o sprite verticalmente
+	anim.flip_v = gravidade_invertida
+	
+	# Altera a direção que a Godot considera como "CHÃO" para as funções de física
+	if gravidade_invertida:
+		up_direction = Vector2.UP * -1
+	else:
+		up_direction = Vector2.UP
+		
+	
+	velocity.y = 50.0 if gravidade_invertida else -50.0
 
 func update_direction():
 	direction = Input.get_axis(input_left, input_right)

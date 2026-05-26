@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://do6ppyeif7wlk"]
 
-[ext_resource type="Script" uid="uid://b4cjy4qm0n1wf" path="res://scripts/player2.gd" id="1_twc2l"]
+[ext_resource type="Script" uid="uid://eifv8xwmcx5s" path="res://scripts/new_player.gd" id="1_anflc"]
 [ext_resource type="Texture2D" uid="uid://dhrp2twh65sjq" path="res://sprites/3 - Robo_Java/SPRITE_JV_RESPIRAR.png" id="2_3s7gd"]
 [ext_resource type="Texture2D" uid="uid://dfrirhmw07moe" path="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png" id="3_fbkpf"]
 [ext_resource type="Texture2D" uid="uid://5hr3y4aqwpj7" path="res://sprites/3 - Robo_Java/SPRITE_JV_PULAR.png" id="3_twc2l"]
@@ -156,7 +156,10 @@ size = Vector2(12, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
 collision_layer = 2
-script = ExtResource("1_twc2l")
+script = ExtResource("1_anflc")
+input_left = "left_p2"
+input_right = "right_p2"
+input_jump = "jump_p2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=910780751]
 z_index = 2

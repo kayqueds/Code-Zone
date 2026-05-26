@@ -28,9 +28,7 @@ var invulnerable = false
 @export var deceleration = 400
 @export var wall_acceleration = 40
 @export var wall_jump_velocity = 240
-@export var water_max_speed = 100
-@export var water_acceleration = 200
-@export var water_jump_force = -100
+
 
 #sons player 2
 @onready var som_pulo: AudioStreamPlayer2D = $SomPulo
@@ -50,6 +48,11 @@ var direction = 0
 var facing_direction = 1
 var status : PlayerState
 
+# gravidade invertida
+@export var comeca_gravidade_invertida: bool = true
+var gravidade_invertida: bool = true
+
+
 func _ready():
 	# Mantém no grupo comum para inimigos e itens universais funcionarem perfeitamente
 	add_to_group("player")
@@ -63,7 +66,6 @@ func _physics_process(delta):
 		PlayerState.jump: jump_state(delta)
 		PlayerState.fall: fall_state(delta)
 		PlayerState.wall: wall_state(delta)
-		PlayerState.swimming: swimming_state(delta)
 		PlayerState.hurt: hurt_state(delta)
 
 	move_and_slide()
@@ -170,17 +172,6 @@ func wall_state(delta):
 		velocity.x = wall_jump_velocity * direction
 		go_to_jump_state()
 
-func swimming_state(delta):
-	update_direction()
-	if direction:
-		velocity.x = move_toward(velocity.x, water_max_speed * direction, water_acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, water_acceleration * delta)
-
-	velocity.y += water_acceleration * delta
-	velocity.y = min(velocity.y, water_max_speed)
-	if Input.is_action_just_pressed(input_jump):
-		velocity.y = water_jump_force
 
 func hurt_state(delta):
 	apply_gravity(delta)
@@ -196,6 +187,23 @@ func move(delta):
 func apply_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+
+func alternar_gravidade():
+	gravidade_invertida = !gravidade_invertida
+	
+	# Gira o sprite verticalmente
+	anim.flip_v = gravidade_invertida
+	
+	# Altera a direção que a Godot considera como "CHÃO" para as funções de física
+	if gravidade_invertida:
+		up_direction = Vector2.UP * -1
+	else:
+		up_direction = Vector2.UP
+		
+	# Detalhe importante: Dá um pequeno empurrãozinho para tirar o player do chão/teto atual
+	# Isso evita que ele fique "preso" na colisão antiga no frame da virada
+	velocity.y = 50.0 if gravidade_invertida else -50.0
 
 func update_direction():
 	direction = Input.get_axis(input_left, input_right)
