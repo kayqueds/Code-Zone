@@ -7,7 +7,7 @@ var life: int = 100
 var max_life: int = 100
 var invulnerable: bool = false
 
-var dir
+var dir: float = 0.0
 var gravity = 980
 var extra_jumps = 1
 
@@ -21,7 +21,7 @@ var extra_jumps = 1
 
 
 var is_alive = true
-var is_punching = false # Deixada aqui para quando você fizer o soco mais tarde!
+var is_punching = false
 
 @export var is_inverted = false
 
@@ -29,22 +29,52 @@ var is_punching = false # Deixada aqui para quando você fizer o soco mais tarde
 @export var input_left := "left_p2"
 @export var input_right := "right_p2"
 @export var input_jump := "jump_p2"
+@export var input_punch := "ataque_p2"
+
+
+# hitbox
+@onready var hitbox_ataque = $HitBoxAtaque/CollisionShape2D
 
 # barra de vida
 var life_bar: AnimatedSprite2D = null
 
 func _ready() -> void:
+	hitbox_ataque.disabled = true
+	if not hitbox_ataque.get_parent().is_connected("body_entered", _on_hitbox_ataque_body_entered):
+		hitbox_ataque.get_parent().body_entered.connect(_on_hitbox_ataque_body_entered)
+	
 	life_bar = get_tree().current_scene.find_child("LifeBar2", true, false)
 	update_life_bar()
 
+# Lógica de Dano do Soco
+func _on_hitbox_ataque_body_entered(body):
+	if body.has_method("take_damage"):
+		body.take_damage(20)
+	elif body.has_method("receber_dano"):
+		body.receber_dano(20)
+
+func _input(event):
+	if event.is_action_pressed(input_punch):
+		if is_alive and not is_punching:
+			is_punching = true
+			anim.play("puch")
+			hitbox_ataque.disabled = false
+			await get_tree().create_timer(0.3).timeout 
+			hitbox_ataque.disabled = true
+			is_punching = false
+
 func _physics_process(delta: float) -> void:
+	if dir < 0:
+		hitbox_ataque.position.x = -20 # Ajuste o valor para a esquerda
+	# Se estiver virado para a direita (direção 1)
+	elif dir > 0:
+		hitbox_ataque.position.x = 20
 	set_gravity()
-	
 	invert_move(delta)
 	move(delta)
-	
 	if is_alive:
 		animations()
+
 
 func set_gravity():
 	if Input.is_action_just_pressed("inverter_gravidade"):
@@ -104,22 +134,22 @@ func invert_move(delta):
 func animations():
 	anim.flip_v = is_inverted
 	
-	var esta_apoiado = is_on_floor() if not is_inverted else is_on_ceiling()
+	# TRAVA DE SEGURANÇA: Se estiver socando, sai da função imediatamente
+	# para não sobrescrever a animação de soco com 'idle' ou 'walk'
+	if is_punching:
+		return
 	
-	if velocity.x != 0 and esta_apoiado:
-		anim.play("walk")
-	elif velocity.x == 0 and esta_apoiado:
-		anim.play("idle")
+	var esta_apoiado = is_on_floor() if not is_inverted else is_on_ceiling()
 	
 	if not esta_apoiado:
 		anim.play("jump")
+	elif velocity.x != 0:
+		anim.play("walk")
+	else:
+		anim.play("idle")
 	
-	# Flip horizontal baseado na direção (Sem mexer no gun_point inexistente)
-	if dir > 0:
-		anim.flip_h = false
-	elif dir < 0:
-		anim.flip_h = true
-
+	if dir != 0:
+		anim.flip_h = (dir < 0)
 # morte
 func die():
 	if is_alive:

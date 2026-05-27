@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://b77w5smegb7md" path="res://sprites/BarraDeVida/BarraDeVIDA-JV.png" id="17_kjkl5"]
 [ext_resource type="PackedScene" uid="uid://b54l1opw7dokf" path="res://entities/curaItem.tscn" id="18_3eg8f"]
 [ext_resource type="AudioStream" uid="uid://bge58dtfo7nvl" path="res://sounds/intro.mp3" id="20_kajwn"]
+[ext_resource type="PackedScene" uid="uid://c7wked5ol6r50" path="res://entities/spider_robot.tscn" id="21_kajwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b78wb"]
 texture = ExtResource("1_cjwtm")
@@ -501,6 +502,9 @@ tile_set = ExtResource("3_ytc0w")
 [node name="Skeleton12" parent="TileMaps" unique_id=1644973203 instance=ExtResource("11_t8vtq")]
 position = Vector2(815, 49)
 
+[node name="Skeleton" parent="TileMaps" unique_id=1133772533 instance=ExtResource("11_t8vtq")]
+position = Vector2(640, 161)
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1013469984]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=209714380]
@@ -653,6 +657,23 @@ gizmo_extents = 258.3
 
 [node name="MovingPlatform5" parent="." unique_id=344568567 instance=ExtResource("14_xflqb")]
 position = Vector2(116, 121)
+
+[node name="Skeleton" parent="." unique_id=1461801810 instance=ExtResource("11_t8vtq")]
+position = Vector2(603, 162)
+
+[node name="Skeleton2" parent="." unique_id=982073643 instance=ExtResource("11_t8vtq")]
+position = Vector2(438, 161)
+
+[node name="Skeleton3" parent="." unique_id=591940713 instance=ExtResource("11_t8vtq")]
+position = Vector2(474, 163)
+
+[node name="Skeleton4" parent="." unique_id=1114431426 instance=ExtResource("11_t8vtq")]
+position = Vector2(399, 162)
+
+[node name="SpiderRobot" parent="." unique_id=1434418112 instance=ExtResource("21_kajwn")]
+position = Vector2(98, 167)
+collision_layer = 5
+collision_mask = 5
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]

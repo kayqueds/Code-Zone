@@ -29,5 +29,7 @@ func _on_body_entered(body):
 	if body.has_method("take_damage"):
 
 		body.take_damage(damage)
+	elif body.has_method("receber_dano"):
+		body.receber_dano(damage)	
 
 		queue_free()
