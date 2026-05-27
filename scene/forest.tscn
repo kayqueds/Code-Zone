@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://byo1oohh1d26d"]
+[gd_scene load_steps=34 format=4 uid="uid://byo1oohh1d26d"]
 
 [ext_resource type="PackedScene" uid="uid://b4uyanguafauh" path="res://entities/player.tscn" id="1_e2knd"]
 [ext_resource type="TileSet" uid="uid://ci6yocecub5y3" path="res://tiles/terrain.tres" id="2_2xpkg"]
@@ -153,10 +153,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Forest" type="Node2D" unique_id=990480343]
+[node name="Forest" type="Node2D"]
 metadata/_edit_vertical_guides_ = [620.0]
 
-[node name="Player" parent="." unique_id=2129588684 instance=ExtResource("1_e2knd")]
+[node name="Player" parent="." instance=ExtResource("1_e2knd")]
 position = Vector2(11, 180)
 max_life = 100
 life_bar_path = NodePath("../HUD/LifeBar1")
@@ -173,131 +173,131 @@ input_right = "right_p1"
 input_jump = "jump_p1"
 max_jump_count = 2
 
-[node name="TileMaps" type="Node" parent="." unique_id=1886595809]
+[node name="TileMaps" type="Node" parent="."]
 
-[node name="Terrain" type="TileMapLayer" parent="TileMaps" unique_id=85721807]
+[node name="Terrain" type="TileMapLayer" parent="TileMaps"]
 tile_map_data = PackedByteArray("AAAAAAwAAQACAAMAAAABAAwAAQACAAMAAAACAAwAAQACAAMAAAADAAwAAQACAAMAAAAEAAwAAQACAAMAAAAFAAwAAQACAAMAAAAGAAwAAQADAAMAAAAHAAwAAQAEAAQAAAAIAAwAAQAEAAQAAAAJAAwAAQAEAAQAAAAKAAwAAQAFAAUAAAARAAwAAQADAAUAAAASAAwAAQAEAAQAAAATAAwAAQAEAAQAAAAUAAwAAQAEAAQAAAAVAAwAAQAEAAQAAAAWAAwAAQAEAAQAAAAXAAwAAQAEAAQAAAAYAAwAAQAEAAQAAAAZAAwAAQAEAAQAAAAaAAwAAQAEAAQAAAAbAAwAAQAEAAQAAAAcAAwAAQAEAAQAAAAdAAwAAQAFAAMAAAAeAAwAAQACAAMAAAAfAAwAAQACAAMAAAAgAAwAAQACAAMAAAAhAAwAAQACAAMAAAAiAAwAAQACAAMAAAAjAAwAAQACAAMAAAAkAAwAAQACAAMAAAAlAAwAAQACAAMAAAAmAAwAAQACAAMAAAAnAAwAAQACAAMAAAAoAAwAAQACAAMAAAApAAwAAQACAAMAAAAqAAwAAQACAAMAAAArAAwAAQACAAMAAAAsAAwAAQACAAMAAAAtAAwAAQACAAMAAAAuAAwAAQACAAMAAAAvAAwAAQACAAMAAAAwAAwAAQACAAMAAAAxAAwAAQACAAMAAAAyAAwAAQACAAMAAAAzAAwAAQACAAMAAAA0AAwAAQACAAMAAAA1AAwAAQACAAMAAAA2AAwAAQACAAMAAAA3AAwAAQACAAMAAAA4AAwAAQACAAMAAAA5AAwAAQACAAMAAAA6AAwAAQACAAMAAAA7AAwAAQACAAMAAAA8AAwAAQACAAMAAAA9AAwAAQACAAMAAAA+AAwAAQACAAMAAAA/AAwAAQACAAMAAABAAAwAAQACAAMAAABBAAwAAQACAAMAAABCAAwAAQACAAMAAABDAAwAAQACAAMAAABEAAwAAQACAAMAAABFAAwAAQACAAMAAABGAAwAAQACAAMAAABHAAwAAQACAAMAAABIAAwAAQACAAMAAABJAAwAAQACAAMAAABKAAwAAQACAAMAAABLAAwAAQACAAMAAABMAAwAAQACAAMAAABNAAwAAQACAAMAAABOAAwAAQACAAMAAABPAAwAAQACAAMAAABQAAwAAQACAAMAAABRAAwAAQACAAMAAABSAAwAAQACAAMAAABTAAwAAQACAAMAAABUAAwAAQACAAMAAABVAAwAAQACAAMAAABWAAwAAQACAAMAAABXAAwAAQACAAMAAABYAAwAAQACAAMAAABZAAwAAQACAAMAAABaAAwAAQACAAMAAABbAAwAAQACAAMAAABcAAwAAQACAAMAAAARAAoAAQABAAMAAAASAAoAAQACAAMAAAATAAoAAQACAAMAAAAUAAkAAQADAAUAAAAVAAkAAQAEAAQAAAAUAAgAAQABAAMAAAAVAAgAAQACAAMAAAAWAAgAAQACAAMAAAAXAAYAAQABAAMAAAAYAAYAAQACAAMAAAAZAAYAAQACAAMAAAAXAAcAAQADAAUAAAAXAAgAAQADAAMAAAAUAAoAAQADAAMAAAARAAsAAQADAAUAAAAaAAYAAQACAAMAAAAbAAYAAQACAAMAAAAcAAYAAQACAAMAAAAdAAYAAQAHAAMAAAAdAAcAAQAFAAUAAAAdAAgAAQAFAAUAAAAdAAsAAQAFAAUAAAAZAAgAAQACAAQAAAAZAAcAAQAEAAQAAAAYAAcAAQAEAAQAAAAYAAgAAQAFAAQAAAAYAAkAAQAFAAUAAAAXAAkAAQAEAAQAAAAWAAkAAQAEAAQAAAAWAAoAAQAEAAQAAAAVAAoAAQAEAAQAAAAVAAsAAQAEAAQAAAAUAAsAAQAEAAQAAAATAAsAAQAEAAQAAAASAAsAAQAEAAQAAAAWAAsAAQAEAAQAAAAXAAsAAQAEAAQAAAAXAAoAAQAEAAQAAAAYAAoAAQAFAAUAAAAYAAsAAQAFAAMAAAAZAAsAAQACAAMAAAAaAAgAAQACAAQAAAAaAAcAAQAEAAQAAAAbAAcAAQAEAAQAAAAbAAgAAQACAAQAAAAbAAsAAQACAAMAAAAaAAsAAQACAAMAAAAcAAsAAQADAAMAAAAcAAgAAQADAAQAAAAcAAcAAQAEAAQAAAAKAAoAAQAHAAMAAAAKAAsAAQAFAAUAAAAJAAoAAQAGAAMAAAAIAAoAAQAGAAMAAAAHAAoAAQAGAAMAAAAGAAoAAQABAAMAAAAGAAsAAQADAAUAAAAHAAsAAQAEAAQAAAAIAAsAAQAEAAQAAAAJAAsAAQAEAAQAAAA=")
 tile_set = ExtResource("2_2xpkg")
 
-[node name="FakeTerrain" type="TileMapLayer" parent="TileMaps" unique_id=1891177316]
+[node name="FakeTerrain" type="TileMapLayer" parent="TileMaps"]
 z_index = 2
 tile_map_data = PackedByteArray("AAAdAAkAAAAFAAIAAAAdAAoAAAAFAAIAAAAcAAkAAAADAAIAAAAcAAoAAAADAAIAAAA=")
 tile_set = SubResource("TileSet_64es3")
 
-[node name="Decoration" type="TileMapLayer" parent="TileMaps" unique_id=1083770384]
+[node name="Decoration" type="TileMapLayer" parent="TileMaps"]
 tile_map_data = PackedByteArray("AAAlAAsAAAADAAUAAAA=")
 tile_set = ExtResource("4_gwku7")
 
-[node name="Lava" type="TileMapLayer" parent="TileMaps" unique_id=1282379637 groups=["LethalArea"]]
+[node name="Lava" type="TileMapLayer" parent="TileMaps" groups=["LethalArea"]]
 z_index = 2
 tile_map_data = PackedByteArray("AAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAAKAAwAAAAAAAEAAAALAAwAAAAAAAEAAAAMAAwAAAAAAAEAAAANAAwAAAAAAAEAAAAOAAwAAAAAAAEAAAAPAAwAAAAAAAEAAAAQAAwAAAAAAAEAAAARAAwAAAAAAAEAAAA=")
 tile_set = ExtResource("5_ja8kk")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1896805769]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=690119117]
+[node name="6" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6" unique_id=29987433]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6"]
 texture_repeat = 2
 texture = ExtResource("3_gbfvw")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=699067694]
+[node name="5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5" unique_id=2072471609]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5"]
 texture_repeat = 2
 texture = ExtResource("4_qxlj4")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1522634055]
+[node name="4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.3)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4" unique_id=1714660168]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4"]
 texture_repeat = 2
 texture = ExtResource("5_jo4av")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2043188081]
+[node name="3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3" unique_id=1692151798]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3"]
 texture_repeat = 2
 texture = ExtResource("6_jxvlp")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1745608677]
+[node name="2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.5)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2" unique_id=1447417278]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2"]
 texture_repeat = 2
 texture = ExtResource("7_gwku7")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="1" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1989600115]
+[node name="1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.2, 1.2)
 motion_mirroring = Vector2(288, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1" unique_id=564145897]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1"]
 texture_repeat = 2
 texture = ExtResource("8_64es3")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 576, 208)
 
-[node name="Camera" parent="." unique_id=648400276 instance=ExtResource("9_jo4av")]
+[node name="Camera" parent="." instance=ExtResource("9_jo4av")]
 position = Vector2(11, 181)
 limit_top = 0
 limit_right = 620
 
-[node name="LevelEnd" parent="." unique_id=1012300795 instance=ExtResource("12_64es3")]
+[node name="LevelEnd" parent="." instance=ExtResource("12_64es3")]
 position = Vector2(636, 153)
 next_level = "tropic"
 
 [node name="CollisionShape2D" parent="LevelEnd" index="0"]
-position = Vector2(0, -55)
+position = Vector2(403, -56)
 shape = SubResource("RectangleShape2D_kmspj")
 
-[node name="Skeleton2" parent="." unique_id=234370761 instance=ExtResource("13_kmspj")]
+[node name="Skeleton2" parent="." instance=ExtResource("13_kmspj")]
 position = Vector2(166, 144)
 
-[node name="Skeleton3" parent="." unique_id=290984257 instance=ExtResource("13_kmspj")]
+[node name="Skeleton3" parent="." instance=ExtResource("13_kmspj")]
 position = Vector2(292, 141)
 
-[node name="Limit" type="StaticBody2D" parent="." unique_id=1348385160]
+[node name="Limit" type="StaticBody2D" parent="."]
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Limit" unique_id=1248040011]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limit"]
 position = Vector2(-3.5, 93.5)
 shape = SubResource("RectangleShape2D_ja8kk")
 
-[node name="Player2" parent="." unique_id=453190765 instance=ExtResource("15_boiax")]
+[node name="Player2" parent="." instance=ExtResource("15_boiax")]
 position = Vector2(62, 181)
 life_bar_path = NodePath("../HUD/LifeBar2")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=653496775]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="LifeBar1" type="AnimatedSprite2D" parent="HUD" unique_id=1632253283]
+[node name="LifeBar1" type="AnimatedSprite2D" parent="HUD"]
 position = Vector2(36, 39)
 sprite_frames = SubResource("SpriteFrames_ysu3w")
 
-[node name="LifeBar2" type="AnimatedSprite2D" parent="HUD" unique_id=1457244487]
+[node name="LifeBar2" type="AnimatedSprite2D" parent="HUD"]
 position = Vector2(83, 37)
 sprite_frames = SubResource("SpriteFrames_dki5c")
 
