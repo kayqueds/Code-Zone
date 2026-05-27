@@ -4,7 +4,7 @@ extends Area2D
 
 var speed = 600.0
 var damage = 10
-var direction = Vector2.RIGHT
+var direction = Vector2.ZERO
 
 func _ready():
 
@@ -29,5 +29,7 @@ func _on_body_entered(body):
 	if body.has_method("take_damage"):
 
 		body.take_damage(damage)
+	elif body.has_method("receber_dano"):
+		body.receber_dano(damage)	
 
 		queue_free()

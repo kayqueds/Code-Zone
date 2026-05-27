@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfrirhmw07moe"
-path="res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"
+uid="uid://jryylokf86ap"
+path="res://.godot/imported/robot spider.png-1c48b9dc51962072afa6059462e857cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png"
-dest_files=["res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"]
+source_file="res://sprites/5 - Enemies/robot spider.png"
+dest_files=["res://.godot/imported/robot spider.png-1c48b9dc51962072afa6059462e857cc.ctex"]
 
 [params]
 

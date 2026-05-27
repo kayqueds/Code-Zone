@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://c7wked5ol6r50"]
+
+[ext_resource type="Script" uid="uid://e1dbbnyingkt" path="res://scripts/spider_robot.gd" id="1_khdiq"]
+[ext_resource type="Texture2D" uid="uid://dm4phlivtrn2l" path="res://sprites/5 - Enemies/robot buble.png" id="1_vv4ud"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khdiq"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(0, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e36gy"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(62, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i47b4"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(0, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkb2n"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(62, 62, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pyn6"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(0, 124, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kddm"]
+atlas = ExtResource("1_vv4ud")
+region = Rect2(62, 124, 62, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3m35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khdiq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e36gy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i47b4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkb2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pyn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7kddm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khdiq"]
+size = Vector2(29, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vv4ud"]
+radius = 16.124516
+
+[node name="SpiderRobot" type="CharacterBody2D" unique_id=1434418112]
+collision_layer = 2
+script = ExtResource("1_khdiq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=32447482]
+sprite_frames = SubResource("SpriteFrames_s3m35")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.9675001
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2144236372]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_khdiq")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1726942638]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1361548959]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_vv4ud")
+debug_color = Color(0.88531655, 0.27404168, 0.4884506, 0.41960785)
+
+[node name="WallDetector" type="RayCast2D" parent="." unique_id=924431115]
+target_position = Vector2(45, 0)
+
+[node name="FloorDetector" type="RayCast2D" parent="." unique_id=1762775402]
+target_position = Vector2(1, 30)
+
+[node name="Timer" type="Timer" parent="." unique_id=371035628]
+wait_time = 2.0
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
