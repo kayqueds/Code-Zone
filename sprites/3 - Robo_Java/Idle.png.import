@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfrirhmw07moe"
-path="res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"
+uid="uid://dbxmfv30mv2vy"
+path="res://.godot/imported/Idle.png-bd5cb92435d2e6e11b44ad8c926ea9ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png"
-dest_files=["res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"]
+source_file="res://sprites/3 - Robo_Java/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-bd5cb92435d2e6e11b44ad8c926ea9ea.ctex"]
 
 [params]
 

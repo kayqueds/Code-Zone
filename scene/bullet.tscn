@@ -50,6 +50,7 @@ animations = [{
 size = Vector2(25, 8)
 
 [node name="Bullet" type="Area2D" unique_id=188579184]
+collision_layer = 3
 script = ExtResource("1_v8qja")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]

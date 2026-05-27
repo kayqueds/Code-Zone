@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://b4cjy4qm0n1wf" path="res://scripts/player2.gd" id="1_anflc"]
 [ext_resource type="Texture2D" uid="uid://dhrp2twh65sjq" path="res://sprites/3 - Robo_Java/SPRITE_JV_RESPIRAR.png" id="2_3s7gd"]
 [ext_resource type="Texture2D" uid="uid://dfrirhmw07moe" path="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png" id="3_fbkpf"]
-[ext_resource type="Texture2D" uid="uid://5hr3y4aqwpj7" path="res://sprites/3 - Robo_Java/SPRITE_JV_PULAR.png" id="3_twc2l"]
-[ext_resource type="Texture2D" uid="uid://bo61mpenykjje" path="res://sprites/3 - Robo_Java/SPRITE_JV_ANDAR.png" id="5_mpnbi"]
+[ext_resource type="Texture2D" uid="uid://dbxmfv30mv2vy" path="res://sprites/3 - Robo_Java/Idle.png" id="4_5xjde"]
+[ext_resource type="Texture2D" uid="uid://c4l3d4jo613hq" path="res://sprites/3 - Robo_Java/roboPULOJAVApc-.png" id="5_hrh5t"]
+[ext_resource type="Texture2D" uid="uid://bcebjcj0s8qv8" path="res://sprites/3 - Robo_Java/roboJava_pc.png" id="6_5xjde"]
 [ext_resource type="AudioStream" uid="uid://deaejvsdmcxuv" path="res://sounds/jump.wav" id="6_anflc"]
 [ext_resource type="AudioStream" uid="uid://b60f4gm0oiolf" path="res://sounds/life.wav" id="7_5xjde"]
 [ext_resource type="AudioStream" uid="uid://ckhqynkx4ajoo" path="res://sounds/hurt.wav" id="8_hrh5t"]
@@ -28,41 +29,41 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("3_fbkpf")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_anflc"]
-atlas = ExtResource("2_3s7gd")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5xjde"]
-atlas = ExtResource("2_3s7gd")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hrh5t"]
-atlas = ExtResource("3_twc2l")
-region = Rect2(0, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_dlkk8"]
-atlas = ExtResource("3_twc2l")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("4_5xjde")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sekg0"]
-atlas = ExtResource("3_twc2l")
+atlas = ExtResource("4_5xjde")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4he7"]
+atlas = ExtResource("5_hrh5t")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyeax"]
+atlas = ExtResource("5_hrh5t")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijtcp"]
+atlas = ExtResource("5_hrh5t")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrh5t"]
+atlas = ExtResource("6_5xjde")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqlqw"]
-atlas = ExtResource("5_mpnbi")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("6_5xjde")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uuies"]
-atlas = ExtResource("5_mpnbi")
-region = Rect2(32, 0, 32, 32)
+atlas = ExtResource("6_5xjde")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tm1gm"]
-atlas = ExtResource("5_mpnbi")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nprge"]
-atlas = ExtResource("5_mpnbi")
-region = Rect2(96, 0, 32, 32)
+atlas = ExtResource("6_5xjde")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i623q"]
 animations = [{
@@ -75,11 +76,6 @@ animations = [{
 }],
 "loop": false,
 "name": &"duck",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"fall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -95,10 +91,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_anflc")
+"texture": SubResource("AtlasTexture_dlkk8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5xjde")
+"texture": SubResource("AtlasTexture_sekg0")
 }],
 "loop": true,
 "name": &"idle",
@@ -106,17 +102,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hrh5t")
+"texture": SubResource("AtlasTexture_e4he7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dlkk8")
+"texture": SubResource("AtlasTexture_qyeax")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sekg0")
+"texture": SubResource("AtlasTexture_ijtcp")
 }],
 "loop": true,
 "name": &"jump",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrh5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqlqw")
+}],
+"loop": true,
+"name": &"puch",
+"speed": 6.0
 }, {
 "frames": [],
 "loop": true,
@@ -125,20 +132,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eqlqw")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_uuies")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tm1gm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nprge")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [],
 "loop": true,
@@ -148,6 +149,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nm46"]
 size = Vector2(12, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xjde"]
+size = Vector2(20, 14)
 
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
 collision_layer = 2
@@ -163,8 +167,9 @@ z_index = 1
 position = Vector2(-0.99999994, -1.4999995)
 scale = Vector2(0.75, 0.71875)
 sprite_frames = SubResource("SpriteFrames_i623q")
-animation = &"jump"
+animation = &"puch"
 autoplay = "idle"
+frame_progress = 0.3801207
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
 z_index = 10
@@ -197,6 +202,13 @@ stream = ExtResource("7_5xjde")
 
 [node name="SomDano" type="AudioStreamPlayer2D" parent="." unique_id=1307910485]
 stream = ExtResource("8_hrh5t")
+
+[node name="HitBoxAtaque" type="Area2D" parent="." unique_id=501284287]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxAtaque" unique_id=1425170427]
+position = Vector2(9, 0)
+shape = SubResource("RectangleShape2D_5xjde")
+debug_color = Color(0.95293516, 0.0771999, 0.51228577, 0.41960785)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfrirhmw07moe"
-path="res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"
+uid="uid://dm4phlivtrn2l"
+path="res://.godot/imported/robot buble.png-f859b04f8f19e8fe02deb4aba2691ded.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/3 - Robo_Java/Sprite-danoEmorte.png"
-dest_files=["res://.godot/imported/Sprite-danoEmorte.png-42600df3c28fa5857122887c24eb7c01.ctex"]
+source_file="res://sprites/5 - Enemies/robot buble.png"
+dest_files=["res://.godot/imported/robot buble.png-f859b04f8f19e8fe02deb4aba2691ded.ctex"]
 
 [params]
 
