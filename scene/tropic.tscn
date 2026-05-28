@@ -578,9 +578,6 @@ limit_left = 0
 limit_top = -6
 limit_right = 2589
 
-[node name="Player" parent="." unique_id=2146716022 instance=ExtResource("1_bmxgx")]
-position = Vector2(31, 141)
-
 [node name="LevelEnd" parent="." unique_id=1328684042 instance=ExtResource("10_d18o5")]
 position = Vector2(541, 139)
 next_level = "forest"
@@ -687,9 +684,10 @@ position = Vector2(474, 163)
 position = Vector2(383, 159)
 
 [node name="SpiderRobot" parent="." unique_id=1434418112 instance=ExtResource("21_kajwn")]
-position = Vector2(98, 167)
-collision_layer = 5
-collision_mask = 5
+position = Vector2(80, 162)
+
+[node name="Skeleton" parent="." unique_id=1133772533 instance=ExtResource("11_t8vtq")]
+position = Vector2(122, 164)
 
 [node name="SpiderRobot2" parent="." unique_id=1633437397 instance=ExtResource("21_kajwn")]
 position = Vector2(265, 162)

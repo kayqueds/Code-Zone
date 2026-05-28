@@ -58,6 +58,8 @@ size = Vector2(25.750004, 15)
 
 [node name="Charged_Bullet" type="Area2D" unique_id=188579184]
 position = Vector2(-2, -3)
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_mt33h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]
