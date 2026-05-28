@@ -151,7 +151,7 @@ animations = [{
 size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xjde"]
-size = Vector2(20, 14)
+size = Vector2(24, 18)
 
 [node name="Player" type="CharacterBody2D" unique_id=453190765 groups=["Player"]]
 collision_layer = 2
@@ -168,9 +168,8 @@ z_index = 1
 position = Vector2(-0.99999994, -1.4999995)
 scale = Vector2(0.75, 0.71875)
 sprite_frames = SubResource("SpriteFrames_i623q")
-animation = &"puch"
+animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.3801207
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=68811985]
 z_index = 10
