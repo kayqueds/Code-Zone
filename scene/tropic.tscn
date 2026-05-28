@@ -576,7 +576,7 @@ texture = ExtResource("11_jx2lj")
 position = Vector2(49, 118)
 limit_left = 0
 limit_top = -6
-limit_right = 1827
+limit_right = 2589
 
 [node name="Player" parent="." unique_id=2146716022 instance=ExtResource("1_bmxgx")]
 position = Vector2(31, 141)
@@ -611,9 +611,15 @@ position = Vector2(590, -66)
 position = Vector2(55, 137)
 time = 3
 
+[node name="Sprite2D" parent="MovingPlatform" index="0"]
+position = Vector2(102, -159)
+
 [node name="Target" parent="MovingPlatform" index="1"]
 position = Vector2(0, -190.5)
 scale = Vector2(1, 1.6875)
+
+[node name="CollisionShape2D" parent="MovingPlatform" index="2"]
+position = Vector2(24, -151)
 
 [node name="MovingPlatform2" parent="." unique_id=687822050 instance=ExtResource("14_xflqb")]
 position = Vector2(255, -57)
@@ -662,7 +668,7 @@ constant_linear_velocity = Vector2(0, 5)
 position = Vector2(989, 169)
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1368833524]
-position = Vector2(2570, 153)
+position = Vector2(2589, 129)
 gizmo_extents = 258.3
 
 [node name="MovingPlatform5" parent="." unique_id=344568567 instance=ExtResource("14_xflqb")]
