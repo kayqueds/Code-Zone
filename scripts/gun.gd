@@ -42,6 +42,7 @@ func disparar_tiro_normal(direction: Vector2) -> void:
 	player.get_parent().add_child(bullet)
 	bullet.global_position = player.gun_point.global_position
 	bullet.set_direction(direction)
+	bullet.set_shooter(self)
 	
 	if player.som_tiro:
 		player.som_tiro.play()

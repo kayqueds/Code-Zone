@@ -1,26 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://7dkaekrflgga"]
+[gd_scene format=3 uid="uid://7dkaekrflgga"]
 
-[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="1_gp4lh"]
+[ext_resource type="Script" uid="uid://b50chkie1scr5" path="res://scripts/moving_platform.gd" id="1_gp4lh"]
 [ext_resource type="Texture2D" uid="uid://302yoayf8iax" path="res://sprites/Seasonal Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_o5dde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gp4lh"]
 size = Vector2(32, 16)
 
-[node name="MovingPlatform" type="AnimatableBody2D"]
+[node name="MovingPlatform" type="AnimatableBody2D" unique_id=439359637]
 collision_mask = 2
 script = ExtResource("1_gp4lh")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2046905691]
 texture = ExtResource("1_o5dde")
 region_enabled = true
 region_rect = Rect2(96, 64, 32, 16)
 
-[node name="Target" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.52549)
-texture = ExtResource("1_o5dde")
-region_enabled = true
-region_rect = Rect2(96, 64, 32, 16)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1186413400]
 shape = SubResource("RectangleShape2D_gp4lh")
-one_way_collision = true
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=829395198]
+position = Vector2(1, 188)

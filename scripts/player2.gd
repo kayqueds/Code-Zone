@@ -9,7 +9,8 @@ var invulnerable: bool = false
 
 var dir: float = 0.0
 var gravity = 980
-var extra_jumps = 1
+var max_jumps = 2
+var jumps_left = 2
 
 # animações
 @onready var anim = $AnimatedSprite2D
@@ -45,6 +46,16 @@ func _ready() -> void:
 	
 	life_bar = get_tree().current_scene.find_child("LifeBar2", true, false)
 	update_life_bar()
+	reset_jump_count()
+
+func reset_jump_count() -> void:
+	jumps_left = max_jumps
+
+func try_jump(jump_force: float) -> void:
+	if Input.is_action_just_pressed(input_jump) and jumps_left > 0 and is_alive:
+		velocity.y = jump_force
+		jumps_left -= 1
+		som_pulo.play()
 
 # Lógica de Dano do Soco
 func _on_hitbox_ataque_body_entered(body):
@@ -97,15 +108,12 @@ func move(delta):
 	
 	velocity.y += gravity * delta
 	
-	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
-		velocity.y = jump_velocity
-		extra_jumps -= 1
-		som_pulo.play() # Toca som de pulo normal
-	
-	if is_on_floor():
-		extra_jumps = 1
+	try_jump(jump_velocity)
 	
 	move_and_slide()
+
+	if is_on_floor():
+		reset_jump_count()
 
 func invert_move(delta):
 	if not is_inverted:
@@ -121,16 +129,12 @@ func invert_move(delta):
 	
 	velocity.y += -gravity * delta
 	
-	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
-		velocity.y = -jump_velocity
-		extra_jumps -= 1
-		som_pulo.play() # Toca som de pulo invertido
-	
-	if is_on_ceiling():
-		extra_jumps = 1
+	try_jump(-jump_velocity)
 	
 	move_and_slide()
 
+	if is_on_floor() or is_on_ceiling():
+		reset_jump_count()
 func animations():
 	anim.flip_v = is_inverted
 	
