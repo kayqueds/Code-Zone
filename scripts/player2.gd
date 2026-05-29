@@ -6,6 +6,7 @@ var jump_velocity = -300.0
 var life: int = 100
 var max_life: int = 100
 var invulnerable: bool = false
+var spawn_position: Vector2
 
 var dir: float = 0.0
 var gravity = 980
@@ -39,6 +40,7 @@ var is_punching = false
 var life_bar: AnimatedSprite2D = null
 
 func _ready() -> void:
+	spawn_position = global_position
 	hitbox_ataque.disabled = true
 	if not hitbox_ataque.get_parent().is_connected("body_entered", _on_hitbox_ataque_body_entered):
 		hitbox_ataque.get_parent().body_entered.connect(_on_hitbox_ataque_body_entered)
@@ -134,8 +136,6 @@ func invert_move(delta):
 func animations():
 	anim.flip_v = is_inverted
 	
-	# TRAVA DE SEGURANÇA: Se estiver socando, sai da função imediatamente
-	# para não sobrescrever a animação de soco com 'idle' ou 'walk'
 	if is_punching:
 		return
 	
@@ -152,13 +152,24 @@ func animations():
 		anim.flip_h = (dir < 0)
 # morte
 func die():
-	if is_alive:
-		is_alive = false
-		anim.play("hurt")
-		velocity.y = jump_velocity - 100 
-		await get_tree().create_timer(1.0).timeout
-		get_tree().reload_current_scene()
 
+	if is_alive:
+
+		is_alive = false
+
+		anim.play("hurt")
+
+		velocity = Vector2.ZERO
+
+		$CollisionShape2D.set_deferred("disabled", true)
+
+		set_physics_process(false)
+
+		await get_tree().create_timer(1.0).timeout
+
+		visible = false
+
+		get_parent().verificar_players()
 # dano
 func receber_dano(quantidade: int) -> void:
 	if invulnerable or not is_alive: 
@@ -213,4 +224,31 @@ func curar(quantidade: int) -> bool:
 	await get_tree().create_timer(0.15).timeout
 	modulate = Color.WHITE
 	
-	return true # Avisa ao item que a cura foi um sucesso!
+	return true
+
+func respawn():
+
+	is_alive = true
+
+	invulnerable = false
+
+	life = max_life
+
+	visible = true
+
+	# VOLTA PRO PONTO INICIAL
+	global_position = spawn_position
+
+	# ZERA MOVIMENTO
+	velocity = Vector2.ZERO
+
+	# REATIVA PROCESSOS
+	set_physics_process(true)
+	set_process(true)
+
+	# REATIVA COLISÃO
+	$CollisionShape2D.set_deferred("disabled", false)
+
+	update_life_bar()
+
+	anim.play("idle")

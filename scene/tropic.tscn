@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b4uyanguafauh" path="res://entities/player.tscn" id="1_bmxgx"]
 [ext_resource type="Texture2D" uid="uid://cqc568s1k887c" path="res://sprites/Seasonal Tilesets/6 - Lab/Tileset/level_tileset.png" id="1_cjwtm"]
+[ext_resource type="Script" uid="uid://d08prv6y4skc1" path="res://scripts/main.gd" id="1_hohr6"]
 [ext_resource type="TileSet" uid="uid://evyc8spfes4j" path="res://tiles/underwater.tres" id="3_ytc0w"]
 [ext_resource type="Texture2D" uid="uid://cmvb2bc0tshop" path="res://sprites/post_soviet_city_parallax/layer_1_ground.png" id="4_w3ggg"]
 [ext_resource type="Texture2D" uid="uid://due57vm7waahk" path="res://sprites/post_soviet_city_parallax/layer_2_stars.png" id="5_2crp5"]
@@ -21,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://b54l1opw7dokf" path="res://entities/curaItem.tscn" id="18_3eg8f"]
 [ext_resource type="AudioStream" uid="uid://bge58dtfo7nvl" path="res://sounds/intro.mp3" id="20_kajwn"]
 [ext_resource type="PackedScene" uid="uid://c7wked5ol6r50" path="res://entities/spider_robot.tscn" id="21_kajwn"]
+[ext_resource type="PackedScene" uid="uid://xi2vp30n7tic" path="res://scene/game_over.tscn" id="23_7jepg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b78wb"]
 texture = ExtResource("1_cjwtm")
@@ -480,6 +482,7 @@ animations = [{
 size = Vector2(20, 292)
 
 [node name="Tropic" type="Node2D" unique_id=1405343744]
+script = ExtResource("1_hohr6")
 metadata/_edit_vertical_guides_ = [520.0]
 metadata/_edit_horizontal_guides_ = [368.0]
 
@@ -757,6 +760,8 @@ position = Vector2(2320, 158)
 
 [node name="Player" parent="." unique_id=1584409699 instance=ExtResource("1_bmxgx")]
 position = Vector2(37, 145)
+
+[node name="GameOver" parent="." unique_id=1496070027 instance=ExtResource("23_7jepg")]
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]

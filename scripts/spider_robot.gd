@@ -11,12 +11,19 @@ var is_alive = true # Flag para controlar o estado
 @onready var floor_detector = $FloorDetector
 @onready var jump_timer = $Timer
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D # Referência ao seu AnimatedSprite
+@export var item_cura_scene: PackedScene
+@export_range(0, 100) var chance_drop: float = 40.0
+
+# som
+@onready var som_explosao: AudioStreamPlayer2D = $SomExplosao
 
 func _ready() -> void:
 	jump_timer.start(randf_range(1.0, 2.5))
 
 func _physics_process(delta: float) -> void:
-	# Só processa movimento se estiver vivo
+	velocity.y += gravity * delta
+
+	velocity.y = clamp(velocity.y, -999, 500)
 	if not is_alive:
 		return
 
@@ -62,8 +69,20 @@ func die():
 	# Desativa a colisão física para não atrapalhar o jogo
 	$CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set
+	som_explosao.play()
 	anim.play("death")
-	
 	# esperar animação
+	
 	await anim.animation_finished
+	calcular_drop()
 	queue_free()
+
+# drop de item
+func calcular_drop():
+	if item_cura_scene == null:
+		return
+	var numero_sorteado = randf() * 100.0
+	if numero_sorteado <= chance_drop:
+		var item_instanciado = item_cura_scene.instantiate()
+		get_parent().call_deferred("add_child", item_instanciado)
+		item_instanciado.global_position = global_position

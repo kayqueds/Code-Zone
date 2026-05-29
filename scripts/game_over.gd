@@ -16,16 +16,19 @@ func _ready():
 	move_sound.process_mode = Node.PROCESS_MODE_ALWAYS
 	confirm_sound.process_mode = Node.PROCESS_MODE_ALWAYS
 	gameover_music.process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	$ColorRect.visible = false
+	$MenuSprite.visible = false
 	# TESTE DIRETO
-	ativar_menu()
+	
 
 func ativar_menu():
 
-	print("MENU ATIVADO")
-
 	esta_ativo = true
-	visible = true
+
+	$ColorRect.visible = true
+	$MenuSprite.visible = true
 
 	get_tree().paused = true
 
@@ -33,7 +36,6 @@ func ativar_menu():
 
 	menu_sprite.play("show_yes")
 
-	# Evita reiniciar a música
 	if not gameover_music.playing:
 		gameover_music.play()
 

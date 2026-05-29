@@ -5,7 +5,7 @@ var jump_velocity = -300.0
 var life: int = 100
 var max_life: int = 100
 var invulnerable: bool = false
-
+var spawn_position: Vector2
 var dir
 var gravity = 980
 var extra_jumps = 1
@@ -23,7 +23,6 @@ var extra_jumps = 1
 
 
 var is_alive = true
-
 @export var is_inverted = false
 # movimentos
 @export var input_left := "left_p1"
@@ -34,6 +33,8 @@ var is_alive = true
 var life_bar: AnimatedSprite2D = null
 
 func _ready() -> void:
+	spawn_position = global_position
+	var spawn_position: Vector2
 	life_bar = get_tree().current_scene.find_child("LifeBar1", true, false)
 	update_life_bar()
 	pass
@@ -125,15 +126,25 @@ func animations():
 
 # morte
 func die():
-	if is_alive:
-		is_alive = false
-		if som_carregando.playing:
-			som_carregando.stop()
-		anim.play("hurt")
-		velocity.y = jump_velocity - 100 
-		await get_tree().create_timer(1.0).timeout
-		get_tree().reload_current_scene()
 
+	if is_alive:
+
+		is_alive = false
+
+		anim.play("hurt")
+
+		velocity = Vector2.ZERO
+
+		$CollisionShape2D.set_deferred("disabled", true)
+
+		set_physics_process(false)
+
+		await get_tree().create_timer(1.0).timeout
+
+		visible = false
+
+		get_parent().verificar_players()
+		
 # dano
 func receber_dano(quantidade: int) -> void:
 	if invulnerable or not is_alive: 
@@ -189,3 +200,30 @@ func curar(quantidade: int) -> bool:
 	modulate = Color.WHITE
 	
 	return true # Avisa que a cura deu certo!
+
+func respawn():
+
+	is_alive = true
+
+	invulnerable = false
+
+	life = max_life
+
+	visible = true
+
+	# VOLTA PRO PONTO INICIAL
+	global_position = spawn_position
+
+	# ZERA MOVIMENTO
+	velocity = Vector2.ZERO
+
+	# REATIVA PROCESSOS
+	set_physics_process(true)
+	set_process(true)
+
+	# REATIVA COLISÃO
+	$CollisionShape2D.set_deferred("disabled", false)
+
+	update_life_bar()
+
+	anim.play("idle")

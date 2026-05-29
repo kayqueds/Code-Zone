@@ -19,6 +19,10 @@ const SPINNING_BONE = preload("res://entities/spinning_bone.tscn")
 @export var item_cura_scene: PackedScene 
 @export_range(0, 100) var chance_drop: float = 40.0
 
+#som
+@onready var som_explosao: AudioStreamPlayer2D = $SomExplosao
+
+
 const SPEED = 20.0
 @export var max_health = 50
 var health = 50
@@ -109,6 +113,7 @@ func take_damage(damage):
 	velocity.x = -direction * 80
 
 	if health <= 0:
+		som_explosao.play()
 		go_to_death_state()
 		return
 
