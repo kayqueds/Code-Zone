@@ -686,7 +686,7 @@ position = Vector2(383, 159)
 [node name="SpiderRobot" parent="." unique_id=1434418112 instance=ExtResource("21_kajwn")]
 position = Vector2(80, 162)
 
-[node name="Skeleton" parent="." unique_id=1133772533 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton5" parent="." unique_id=1505331533 instance=ExtResource("11_t8vtq")]
 position = Vector2(122, 164)
 
 [node name="SpiderRobot2" parent="." unique_id=1633437397 instance=ExtResource("21_kajwn")]
@@ -704,28 +704,28 @@ position = Vector2(410, 143)
 [node name="SpiderRobot6" parent="." unique_id=1306607115 instance=ExtResource("21_kajwn")]
 position = Vector2(683, 142)
 
-[node name="Skeleton5" parent="." unique_id=518125088 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton6" parent="." unique_id=518125088 instance=ExtResource("11_t8vtq")]
 position = Vector2(330, 148)
 
-[node name="Skeleton6" parent="." unique_id=489662598 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton7" parent="." unique_id=489662598 instance=ExtResource("11_t8vtq")]
 position = Vector2(188, 110)
 
-[node name="Skeleton7" parent="." unique_id=826697934 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton8" parent="." unique_id=826697934 instance=ExtResource("11_t8vtq")]
 position = Vector2(165, 110)
 
-[node name="Skeleton8" parent="." unique_id=2036807896 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton9" parent="." unique_id=2036807896 instance=ExtResource("11_t8vtq")]
 position = Vector2(811, 158)
 
-[node name="Skeleton9" parent="." unique_id=514993042 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton10" parent="." unique_id=514993042 instance=ExtResource("11_t8vtq")]
 position = Vector2(1821, 159)
 
-[node name="Skeleton10" parent="." unique_id=1677129140 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton11" parent="." unique_id=1677129140 instance=ExtResource("11_t8vtq")]
 position = Vector2(1861, 152)
 
-[node name="Skeleton11" parent="." unique_id=1085987415 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton12" parent="." unique_id=1085987415 instance=ExtResource("11_t8vtq")]
 position = Vector2(1773, 115)
 
-[node name="Skeleton12" parent="." unique_id=1600723766 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton13" parent="." unique_id=1600723766 instance=ExtResource("11_t8vtq")]
 position = Vector2(1977, 99)
 
 [node name="SpiderRobot7" parent="." unique_id=546222415 instance=ExtResource("21_kajwn")]
@@ -740,10 +740,10 @@ position = Vector2(2041, 156)
 [node name="SpiderRobot10" parent="." unique_id=234764724 instance=ExtResource("21_kajwn")]
 position = Vector2(1782, 149)
 
-[node name="Skeleton13" parent="." unique_id=273958480 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton14" parent="." unique_id=273958480 instance=ExtResource("11_t8vtq")]
 position = Vector2(1656, 150)
 
-[node name="Skeleton14" parent="." unique_id=1131751382 instance=ExtResource("11_t8vtq")]
+[node name="Skeleton15" parent="." unique_id=1131751382 instance=ExtResource("11_t8vtq")]
 position = Vector2(2002, 154)
 
 [node name="SpiderRobot11" parent="." unique_id=433008702 instance=ExtResource("21_kajwn")]
@@ -754,6 +754,9 @@ position = Vector2(2241, 157)
 
 [node name="SpiderRobot13" parent="." unique_id=246578983 instance=ExtResource("21_kajwn")]
 position = Vector2(2320, 158)
+
+[node name="Player" parent="." unique_id=1584409699 instance=ExtResource("1_bmxgx")]
+position = Vector2(37, 145)
 
 [editable path="LevelEnd"]
 [editable path="MovingPlatform"]
