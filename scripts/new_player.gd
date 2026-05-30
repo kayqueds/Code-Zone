@@ -10,7 +10,8 @@ var dir
 
 var gravity = 980
 
-var extra_jumps = 1
+var max_jumps = 2
+var jumps_left = 2
 
 @onready var anim = $AnimatedSprite2D
 
@@ -26,20 +27,20 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	
-	print(is_inverted)
-	
 	set_gravity()
-	
-	
 	invert_move(delta)
 	move(delta)
 	
-	
 	if is_alive:
 		animations()
-	
-	pass
+
+func reset_jump_count() -> void:
+	jumps_left = max_jumps
+
+func try_jump(jump_force: float) -> void:
+	if Input.is_action_just_pressed(input_jump) and jumps_left > 0 and is_alive:
+		velocity.y = jump_force
+		jumps_left -= 1
 
 func set_gravity():
 	
@@ -66,14 +67,12 @@ func move(delta):
 	
 	velocity.y += gravity * delta
 	
-	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
-		velocity.y = jump_velocity
-		extra_jumps -= 1
-	
-	if is_on_floor():
-		extra_jumps = 1
+	try_jump(jump_velocity)
 	
 	move_and_slide()
+	
+	if is_on_floor():
+		reset_jump_count()
 	
 	pass
 
@@ -93,14 +92,12 @@ func invert_move(delta):
 	
 	velocity.y += -gravity * delta
 	
-	if Input.is_action_just_pressed(input_jump) and extra_jumps > 0 and is_alive:
-		velocity.y = -jump_velocity
-		extra_jumps -= 1
-	
-	if is_on_ceiling():
-		extra_jumps = 1
+	try_jump(-jump_velocity)
 	
 	move_and_slide()
+	
+	if is_on_floor() or is_on_ceiling():
+		reset_jump_count()
 	
 	pass
 
