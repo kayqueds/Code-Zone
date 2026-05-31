@@ -35,11 +35,11 @@ var life_bar: AnimatedSprite2D = null
 
 func _ready() -> void:
 	spawn_position = global_position
-	var spawn_position: Vector2
+	print("SPAWN SALVO:", spawn_position)
+
 	life_bar = get_tree().current_scene.find_child("LifeBar1", true, false)
 	update_life_bar()
 	reset_jump_count()
-
 func reset_jump_count() -> void:
 	jumps_left = max_jumps
 

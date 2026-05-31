@@ -11,35 +11,36 @@ var esta_ativo = false
 func _ready():
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	menu_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	menu_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
 	move_sound.process_mode = Node.PROCESS_MODE_ALWAYS
 	confirm_sound.process_mode = Node.PROCESS_MODE_ALWAYS
 	gameover_music.process_mode = Node.PROCESS_MODE_ALWAYS
-	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# Começa escondido
+	visible = true
 	$ColorRect.visible = false
 	$MenuSprite.visible = false
-	# TESTE DIRETO
-	
 
 func ativar_menu():
 
+	print("GAME OVER ATIVADO")
+
 	esta_ativo = true
 
+	# Mostra elementos do menu
 	$ColorRect.visible = true
 	$MenuSprite.visible = true
 
 	get_tree().paused = true
 
 	opcao_selecionada = 0
-
 	menu_sprite.play("show_yes")
 
 	if not gameover_music.playing:
 		gameover_music.play()
 
-func _process(delta):
+func _process(_delta):
 
 	if not esta_ativo:
 		return
@@ -47,44 +48,30 @@ func _process(delta):
 	# YES
 	if Input.is_action_just_pressed("left_p1"):
 
-		print("LEFT")
-
 		opcao_selecionada = 0
-
 		menu_sprite.play("show_yes")
-
 		move_sound.play()
 
 	# NO
-	if Input.is_action_just_pressed("right_p1"):
-
-		print("RIGHT")
+	elif Input.is_action_just_pressed("right_p1"):
 
 		opcao_selecionada = 1
-
 		menu_sprite.play("show_no")
-
 		move_sound.play()
 
 	# CONFIRMAR
-	# CONFIRMAR
-	if Input.is_action_just_pressed("shoot_p1") or Input.is_action_just_pressed("ataque_p2"):
-		print("CONFIRMAR")
-		
-		# 1. Toca o som
+	if Input.is_action_just_pressed("shoot_p1") \
+	or Input.is_action_just_pressed("ataque_p2"):
+
+		esta_ativo = false
+
 		confirm_sound.play()
-		
-		# 2. Desativa a interação para o jogador não apertar de novo
-		esta_ativo = false 
-		
-		# 3. Espera o som terminar (o sinal 'finished' é emitido automaticamente)
 		await confirm_sound.finished
-		
-		# 4. Agora sim, executa a lógica
+
+		gameover_music.stop()
+		get_tree().paused = false
+
 		if opcao_selecionada == 0:
-			gameover_music.stop()
-			get_tree().paused = false
 			get_tree().reload_current_scene()
 		else:
-			gameover_music.stop()
-			get_tree().quit()
+			get_tree().change_scene_to_file("res://scene/start.tscn")

@@ -156,23 +156,13 @@ func animations():
 		anim.flip_h = (dir < 0)
 # morte
 func die():
-
 	if is_alive:
-
 		is_alive = false
-
-		anim.play("hurt")
-
 		velocity = Vector2.ZERO
-
-		$CollisionShape2D.set_deferred("disabled", true)
-
+		anim.play("hurt")
 		set_physics_process(false)
-
 		await get_tree().create_timer(1.0).timeout
-
 		visible = false
-
 		get_parent().verificar_players()
 # dano
 func receber_dano(quantidade: int) -> void:
@@ -211,7 +201,6 @@ func update_life_bar():
 		life_bar.frame = 4            # Crítica / Vazia
 
 # curar
-
 func curar(quantidade: int) -> bool:
 	if not is_alive or life >= max_life:
 		return false
@@ -232,26 +221,19 @@ func curar(quantidade: int) -> bool:
 
 func respawn():
 
+	global_position = spawn_position
+	velocity = Vector2.ZERO
+
 	is_alive = true
-
 	invulnerable = false
-
 	life = max_life
 
 	visible = true
 
-	# VOLTA PRO PONTO INICIAL
-	global_position = spawn_position
-
-	# ZERA MOVIMENTO
-	velocity = Vector2.ZERO
-
-	# REATIVA PROCESSOS
 	set_physics_process(true)
 	set_process(true)
 
-	# REATIVA COLISÃO
-	$CollisionShape2D.set_deferred("disabled", false)
+	$CollisionShape2D.disabled = false
 
 	update_life_bar()
 

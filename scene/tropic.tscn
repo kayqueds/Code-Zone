@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://c7wked5ol6r50" path="res://entities/spider_robot.tscn" id="21_kajwn"]
 [ext_resource type="Script" uid="uid://c0vyubswud5ny" path="res://scripts/death_line_bottom.gd" id="22_hohr6"]
 [ext_resource type="PackedScene" uid="uid://xi2vp30n7tic" path="res://scene/game_over.tscn" id="23_7jepg"]
+[ext_resource type="Script" uid="uid://o5viyb5skk67" path="res://scripts/death_line_top.gd" id="24_kwwm6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b78wb"]
 texture = ExtResource("1_cjwtm")
@@ -615,18 +616,6 @@ position = Vector2(515, -121)
 [node name="MovingPlatform6" parent="LevelEnd" unique_id=181879480 instance=ExtResource("14_xflqb")]
 position = Vector2(590, -66)
 
-[node name="MovingPlatform" parent="." unique_id=1282870870 instance=ExtResource("14_xflqb")]
-position = Vector2(55, 137)
-
-[node name="Sprite2D" parent="MovingPlatform" index="0" unique_id=2046905691]
-position = Vector2(102, -159)
-
-[node name="CollisionShape2D" parent="MovingPlatform" index="1" unique_id=1186413400]
-position = Vector2(24, -151)
-
-[node name="MovingPlatform2" parent="." unique_id=687822050 instance=ExtResource("14_xflqb")]
-position = Vector2(255, -57)
-
 [node name="Player2" parent="." unique_id=453190765 instance=ExtResource("15_xnncp")]
 position = Vector2(58, 111)
 collision_layer = 1
@@ -673,9 +662,6 @@ position = Vector2(989, 169)
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1368833524]
 position = Vector2(2589, 129)
 gizmo_extents = 258.3
-
-[node name="MovingPlatform5" parent="." unique_id=344568567 instance=ExtResource("14_xflqb")]
-position = Vector2(116, 121)
 
 [node name="Skeleton" parent="." unique_id=1461801810 instance=ExtResource("11_t8vtq")]
 position = Vector2(603, 162)
@@ -778,6 +764,7 @@ shape = SubResource("RectangleShape2D_kajwn")
 
 [node name="DeathLineTop" type="Area2D" parent="." unique_id=365467486]
 collision_layer = 4
+script = ExtResource("24_kwwm6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathLineTop" unique_id=2068861569]
 position = Vector2(1288, -11.25)
@@ -789,5 +776,3 @@ shape = SubResource("RectangleShape2D_kwwm6")
 [connection signal="body_entered" from="DeathLineTop" to="DeathLineTop" method="_on_body_entered"]
 
 [editable path="LevelEnd"]
-[editable path="MovingPlatform"]
-[editable path="MovingPlatform2"]

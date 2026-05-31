@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xi2vp30n7tic"]
 
-[ext_resource type="Texture2D" uid="uid://c1vmfkq544ldf" path="res://sprites/GAMEOVER/GAMEOVER.png" id="1_8uq5u"]
+[ext_resource type="Texture2D" uid="uid://c1vmfkq544ldf" path="res://sprites/7 - Menu/GAMEOVER.png" id="1_8uq5u"]
 [ext_resource type="Script" uid="uid://b57pg2pt5w18v" path="res://scripts/game_over.gd" id="1_mxr41"]
 [ext_resource type="AudioStream" uid="uid://du8fej4h2nxjr" path="res://sounds/Game Over.mp3" id="3_bc2bx"]
 [ext_resource type="AudioStream" uid="uid://6fdf5mpwissd" path="res://sounds/move_sound.mp3" id="4_6pabp"]

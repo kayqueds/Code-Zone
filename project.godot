@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Plataforma2D-YouTube"
-run/main_scene="uid://c8yhqpob56plw"
+run/main_scene="uid://bhiktclxn1iml"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
