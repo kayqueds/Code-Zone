@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bolndxucaooy2"]
+
+[ext_resource type="Script" uid="uid://dwnhtsw3wv1gs" path="res://scripts/you_win.gd" id="1_rlycu"]
+[ext_resource type="Texture2D" uid="uid://cdib3xppioyd7" path="res://scene/ChatGPT Image 4 de jun. de 2026, 11_04_11.png" id="1_vkac0"]
+[ext_resource type="AudioStream" uid="uid://dee1srhg3xk62" path="res://musica/freesound_community-success-fanfare-trumpets-6185.mp3" id="2_rlycu"]
+
+[node name="YouWin" type="Control" unique_id=7503574]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_rlycu")
+
+[node name="Background you win" type="Sprite2D" parent="." unique_id=657638658]
+position = Vector2(150.49998, 99)
+scale = Vector2(0.19596352, 0.1953125)
+texture = ExtResource("1_vkac0")
+
+[node name="victory sound" type="AudioStreamPlayer2D" parent="." unique_id=749565993]
+stream = ExtResource("2_rlycu")

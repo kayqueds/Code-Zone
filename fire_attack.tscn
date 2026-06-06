@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cfmie2kicxug6"]
+
+[ext_resource type="Script" uid="uid://b7lqlb7q5eq0p" path="res://scripts/fire_attack.gd" id="1_k1bra"]
+[ext_resource type="Texture2D" uid="uid://cylffhggrokmh" path="res://sprites/Free  Effect Bullet Impact Explosion 32x32 V1/Red Effect Bullet Impact Explosion 32x32.png" id="1_u8yq0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1bra"]
+atlas = ExtResource("1_u8yq0")
+region = Rect2(352, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulq0t"]
+atlas = ExtResource("1_u8yq0")
+region = Rect2(384, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk8wf"]
+atlas = ExtResource("1_u8yq0")
+region = Rect2(416, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2plet"]
+atlas = ExtResource("1_u8yq0")
+region = Rect2(448, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kcrs0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1bra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulq0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk8wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2plet")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8yq0"]
+radius = 11.0
+height = 34.0
+
+[node name="FireAttack" type="Area2D" unique_id=2109139348]
+collision_mask = 3
+script = ExtResource("1_k1bra")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1707086146]
+sprite_frames = SubResource("SpriteFrames_kcrs0")
+frame_progress = 0.34322572
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1492109242]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_u8yq0")
+
+[node name="Timer" type="Timer" parent="." unique_id=1700336726]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

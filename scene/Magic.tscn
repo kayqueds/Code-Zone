@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bte2i3h6chvxf"]
+
+[ext_resource type="Script" uid="uid://31xy6axumaaq" path="res://scripts/magic.gd" id="1_o11dl"]
+[ext_resource type="Texture2D" uid="uid://bklh4xkmtylep" path="res://sprites/Free  Effect Bullet Impact Explosion 32x32 V1/Blue Effect Bullet Impact Explosion 32x32.png" id="2_g16oc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lelal"]
+atlas = ExtResource("2_g16oc")
+region = Rect2(448, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb2op"]
+atlas = ExtResource("2_g16oc")
+region = Rect2(416, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc3e4"]
+atlas = ExtResource("2_g16oc")
+region = Rect2(384, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eru0i"]
+atlas = ExtResource("2_g16oc")
+region = Rect2(352, 352, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0gekt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lelal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb2op")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc3e4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eru0i")
+}],
+"loop": true,
+"name": &"Magic",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7bh2f"]
+radius = 15.033297
+
+[node name="Magic" type="Area2D" unique_id=1262670711]
+collision_mask = 3
+script = ExtResource("1_o11dl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=858136943]
+sprite_frames = SubResource("SpriteFrames_0gekt")
+animation = &"Magic"
+frame_progress = 0.9753338
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1144903395]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_7bh2f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

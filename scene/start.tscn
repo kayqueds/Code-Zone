@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bhiktclxn1iml"]
+
+[ext_resource type="Script" uid="uid://cqrgfkafvlh26" path="res://scripts/start.gd" id="1_bnuxd"]
+[ext_resource type="Texture2D" uid="uid://nw2xo2l6te38" path="res://sprites/7 - Menu/START.png" id="2_bnuxd"]
+[ext_resource type="AudioStream" uid="uid://cgudjtntt0wuu" path="res://sounds/start_sound.mp3" id="3_xmel7"]
+[ext_resource type="AudioStream" uid="uid://wmowvt64vnny" path="res://sounds/confirm_sound.mp3" id="5_pb375"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srnb1"]
+atlas = ExtResource("2_bnuxd")
+region = Rect2(0, 0, 320, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xr4q"]
+atlas = ExtResource("2_bnuxd")
+region = Rect2(320, 0, 320, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w484r"]
+atlas = ExtResource("2_bnuxd")
+region = Rect2(640, 0, 320, 180)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bc2bx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srnb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xr4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w484r")
+}],
+"loop": true,
+"name": &"start",
+"speed": 6.0
+}]
+
+[node name="Start" type="CanvasLayer" unique_id=1496070027]
+layer = 10
+script = ExtResource("1_bnuxd")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1717077287]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+
+[node name="MenuSprite" type="AnimatedSprite2D" parent="." unique_id=103582518]
+position = Vector2(152, 99)
+scale = Vector2(1, 1.0888889)
+sprite_frames = SubResource("SpriteFrames_bc2bx")
+animation = &"start"
+autoplay = "start"
+frame_progress = 0.1760488
+
+[node name="StartSound" type="AudioStreamPlayer2D" parent="." unique_id=317685202]
+process_mode = 3
+stream = ExtResource("3_xmel7")
+
+[node name="ConfirmSound" type="AudioStreamPlayer2D" parent="." unique_id=1154209239]
+process_mode = 3
+stream = ExtResource("5_pb375")

@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bk6s83wge3q3n"]
+
+[ext_resource type="Script" uid="uid://b7coighcftlr8" path="res://scripts/charged_bullet.gd" id="1_mt33h"]
+[ext_resource type="Texture2D" uid="uid://dig1kkvta146" path="res://sprites/Warped shooting fx files/Assets/Pixelart/charged/spritesheet.png" id="2_mt33h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0bjs"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(0, 0, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1eue"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(63, 0, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckmg1"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(126, 0, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlawd"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(189, 0, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydtta"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(252, 0, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kkfa"]
+atlas = ExtResource("2_mt33h")
+region = Rect2(315, 0, 63, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gofb6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0bjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1eue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckmg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlawd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydtta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kkfa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bibm"]
+size = Vector2(25.750004, 15)
+
+[node name="Charged_Bullet" type="Area2D" unique_id=188579184]
+position = Vector2(-2, -3)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_mt33h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=704440132]
+position = Vector2(-6.625004, 9.536743e-07)
+scale = Vector2(0.7499997, 0.75)
+sprite_frames = SubResource("SpriteFrames_gofb6")
+autoplay = "default"
+frame_progress = 0.6264461
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474655065]
+position = Vector2(2.124998, 9.536743e-07)
+shape = SubResource("RectangleShape2D_4bibm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
